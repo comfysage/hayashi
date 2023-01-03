@@ -42,16 +42,15 @@ func Start(config pkg.Config) error {
 
 	// .. pkg <> <>
 	case "pkg":
-		args = args[2:]
-		if len(args) < 1 {
-			os.Exit(1)
-		}
-
 		argv := Flags.Arg(1)
 		switch argv {
 
 		// .. pkg add <>
 		case "add":
+			if len(args) < 3 {
+				return fmt.Errorf("not enough arguments to call")
+			}
+			args = args[2:]
 			var err error
 			if len(args[1]) > 0 {
 				err = AddWithUrl(args[0], args[1], force)
@@ -62,6 +61,10 @@ func Start(config pkg.Config) error {
 
 		// .. pkg remove <>
 		case "remove":
+			if len(args) < 3 {
+				return fmt.Errorf("not enough arguments to call")
+			}
+			args = args[2:]
 			err := Remove(args[0])
 			return err
 		}
