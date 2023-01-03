@@ -31,6 +31,11 @@ func main() {
 
 	switch cmd {
 
+	// .. help
+	case "help":
+		cli.Help()
+		break
+
 	// .. pkg <> <>
 	case "pkg":
 		args = args[2:]
