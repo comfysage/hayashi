@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/crispybaccoon/hayashi/pkg"
@@ -88,51 +89,47 @@ func Start(config pkg.Config) error {
 
 	// .. show <...>
 	case "show":
-		argv := Flags.Arg(1)
-		err := Show(argv)
-		Err(err)
-		if len(args) > 2 {
-			for _, s := range args[2:] {
-				err = Show(s)
-				Err(err)
-			}
+		args = args[1:]
+		if len(args) < 0 {
+			Err(fmt.Errorf("not enough arguments"))
+		}
+		for _, s := range args {
+			err = Show(s)
+			Err(err)
 		}
 		break
 
 	// .. add <...>
 	case "add":
-		argv := Flags.Arg(1)
-		err := Install(argv, force, config.DeepClone)
-		Err(err)
-		if len(args) > 2 {
-			for _, s := range args[2:] {
-				err := Install(s, force, config.DeepClone)
-				Err(err)
-			}
+		args = args[1:]
+		if len(args) < 0 {
+			Err(fmt.Errorf("not enough arguments"))
+		}
+		for _, s := range args {
+			err := Install(s, force, config.DeepClone)
+			Err(err)
 		}
 		break
 	// .. update <...>
 	case "update":
-		argv := Flags.Arg(1)
-		err := Update(argv, force, config.DeepClone)
-		Err(err)
-		if len(args) > 2 {
-			for _, s := range args[2:] {
-				err := Update(s, force, config.DeepClone)
-				Err(err)
-			}
+		args = args[1:]
+		if len(args) < 0 {
+			Err(fmt.Errorf("not enough arguments"))
+		}
+		for _, s := range args {
+			err := Update(s, force, config.DeepClone)
+			Err(err)
 		}
 		break
 	// .. remove <...>
 	case "remove":
-		argv := Flags.Arg(1)
-		err := Uninstall(argv)
-		Err(err)
-		if len(args) > 2 {
-			for _, s := range args[2:] {
-				err := Uninstall(s)
-				Err(err)
-			}
+		args = args[1:]
+		if len(args) < 0 {
+			Err(fmt.Errorf("not enough arguments"))
+		}
+		for _, s := range args {
+			err := Uninstall(s)
+			Err(err)
 		}
 		break
 	default:
