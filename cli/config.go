@@ -8,6 +8,19 @@ import (
 	"github.com/crispybaccoon/hayashi/util"
 )
 
+func AddInstalled(p pkg.Pkg) error {
+	config, err := pkg.GetConfig()
+	if err != nil {
+		return err
+	}
+
+	err = config.AddInstalled(p)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func Read() pkg.Config {
 
 	config, err := pkg.GetConfig()
