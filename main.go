@@ -36,6 +36,11 @@ func main() {
 		cli.Help()
 		break
 
+	case "list":
+		err := cli.List()
+		cli.Err(err)
+		break
+
 	// .. pkg <> <>
 	case "pkg":
 		args = args[2:]
