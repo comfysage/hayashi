@@ -52,6 +52,10 @@ You can also specify a git url for the pkg:
 
     $ hayashi update pkg_name
 
+### List installed packages
+
+    $ hayashi list
+
 ## Installation
 
 hayashi can be installed with go:
