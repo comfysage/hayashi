@@ -76,5 +76,15 @@ func Install(name string, force bool, deep_clone bool) error {
 		return err
 	}
 
-	return install(p, force, deep_clone)
+	err = install(p, force, deep_clone)
+	if err != nil {
+		return err
+	}
+
+	err = AddInstalled(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
