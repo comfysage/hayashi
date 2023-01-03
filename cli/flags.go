@@ -21,7 +21,7 @@ type FlagSet struct {
 }
 
 func (f FlagSet) Arg(n int) string {
-	if len(f.args) < n - 1 || len(f.args) < 1 {
+	if len(f.args) < n + 1 || len(f.args) < 1 {
 		return ""
 	}
 	return f.args[n]
