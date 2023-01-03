@@ -1,5 +1,10 @@
 package pkg
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Pkg struct {
 	Name       string   `yaml:"pkg"`
 	Url        string   `yaml:"url"`
@@ -12,7 +17,25 @@ type Pkg struct {
 	Bin string `yaml:"bin"`
 }
 
-func (pkg *Pkg) InferInfo() error {
+func (pkg *Pkg) inferCollection(path string) error {
+	if len(pkg.Collection) > 0 {
+		return nil
+	}
+	sp := strings.Split(path, "/")
+	if len(sp) < 2 {
+		return fmt.Errorf("path to pkg not long enough")
+	}
+	pkg.Collection = sp[len(sp)-2]
+	return nil
+}
+
+func (pkg *Pkg) InferInfo(path string) error {
+	// infer collection
+	err := pkg.inferCollection(path)
+	if err != nil {
+		return err
+	}
+
 	// infer url
 	// founddot := false
 	foundslash := false

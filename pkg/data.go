@@ -29,7 +29,7 @@ func GetPkg(name string) (Pkg, error) {
 	}
 
 	// infer information
-	pkg.InferInfo()
+	pkg.InferInfo(path)
 
 	return pkg, nil
 }
