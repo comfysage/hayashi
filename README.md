@@ -10,6 +10,7 @@ A pkg is defined in a yaml file at one of the [collections](#collections) in `~/
 
 ```yaml
 pkg: pkg_name
+collection: pkg_collection
 desc: description
 url: git_url
 
