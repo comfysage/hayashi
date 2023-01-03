@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"crispybaccoon/hayashi/pkg"
+	"github.com/crispybaccoon/hayashi/pkg"
 )
 
 func show(pkg pkg.Pkg) {

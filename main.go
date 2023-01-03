@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crispybaccoon/hayashi/cli"
+	"github.com/crispybaccoon/hayashi/cli"
 	"os"
 )
 

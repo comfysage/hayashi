@@ -2,8 +2,9 @@ package pkg
 
 import (
 	"bufio"
-	"crispybaccoon/hayashi/util"
 	"os"
+
+	"github.com/crispybaccoon/hayashi/util"
 )
 
 func GetPkg(name string) (Pkg, error) {

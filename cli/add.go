@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"crispybaccoon/hayashi/pkg"
-	"crispybaccoon/hayashi/util"
+	"github.com/crispybaccoon/hayashi/pkg"
+	"github.com/crispybaccoon/hayashi/util"
 	"fmt"
 )
 

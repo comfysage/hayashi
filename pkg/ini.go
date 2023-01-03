@@ -2,7 +2,7 @@ package pkg
 
 import (
 	"bufio"
-	"crispybaccoon/hayashi/ini"
+	"github.com/crispybaccoon/hayashi/ini"
 	"strings"
 )
 
