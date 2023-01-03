@@ -7,6 +7,8 @@ import (
 
 func main() {
 
+	config := cli.Read()
+
 	force := false
 	cli.Flags.BoolVar(&force, "force", "Force install or override pkg config")
 	help := false
@@ -87,22 +89,22 @@ func main() {
 
 	// .. add <...>
 	case "add":
-		err := cli.Install(argv, force, false)
+		err := cli.Install(argv, force, config.DeepClone)
 		cli.Err(err)
 		if len(args) > 2 {
 			for _, s := range args[2:] {
-				err := cli.Install(s, force, false)
+				err := cli.Install(s, force, config.DeepClone)
 				cli.Err(err)
 			}
 		}
 		break
 	// .. update <...>
 	case "update":
-		err := cli.Update(argv, force, false)
+		err := cli.Update(argv, force, config.DeepClone)
 		cli.Err(err)
 		if len(args) > 2 {
 			for _, s := range args[2:] {
-				err := cli.Update(s, force, false)
+				err := cli.Update(s, force, config.DeepClone)
 				cli.Err(err)
 			}
 		}
