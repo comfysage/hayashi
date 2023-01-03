@@ -9,7 +9,8 @@ func main() {
 
 	config := cli.Read()
 
-	cli.Start(config)
+	err := cli.Start(config)
+	cli.Err(err)
 
 	os.Exit(0)
 }

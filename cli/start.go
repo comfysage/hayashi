@@ -15,7 +15,7 @@ func Start(config pkg.Config) error {
 	Flags.BoolVar(&help, "help", "Show help message")
 	err := Flags.Parse(os.Args[1:])
 	if err != nil {
-		Err(err)
+		return err
 	}
 
 	if help {
@@ -34,12 +34,11 @@ func Start(config pkg.Config) error {
 	// .. help
 	case "help":
 		Help()
-		break
+		return nil
 
 	case "list":
 		err := List()
-		Err(err)
-		break
+		return err
 
 	// .. pkg <> <>
 	case "pkg":
@@ -59,14 +58,12 @@ func Start(config pkg.Config) error {
 			} else {
 				err = Add(args[0], force)
 			}
-			Err(err)
-			break
+			return err
 
 		// .. pkg remove <>
 		case "remove":
 			err := Remove(args[0])
-			Err(err)
-			break
+			return err
 		}
 		break
 
@@ -77,13 +74,11 @@ func Start(config pkg.Config) error {
 		// .. config init
 		case "init":
 			err := Init()
-			Err(err)
-			break
+			return err
 		// .. config create
 		case "create":
 			err := Create()
-			Err(err)
-			break
+			return err
 		}
 		break
 
@@ -95,9 +90,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err = Show(s)
-			Err(err)
+			return err
 		}
-		break
+		return nil
 
 	// .. add <...>
 	case "add":
@@ -107,9 +102,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Install(s, force, config.DeepClone)
-			Err(err)
+			return err
 		}
-		break
+		return nil
 	// .. update <...>
 	case "update":
 		args = args[1:]
@@ -118,9 +113,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Update(s, force, config.DeepClone)
-			Err(err)
+			return err
 		}
-		break
+		return nil
 	// .. remove <...>
 	case "remove":
 		args = args[1:]
@@ -129,9 +124,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Uninstall(s)
-			Err(err)
+			return err
 		}
-		break
+		return nil
 	default:
 		Help()
 	}
