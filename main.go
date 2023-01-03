@@ -29,6 +29,7 @@ func main() {
 
 	switch cmd {
 
+	// .. pkg <> <>
 	case "pkg":
 		args = args[2:]
 		if len(args) < 1 {
