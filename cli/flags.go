@@ -32,8 +32,38 @@ func (f FlagSet) Args() []string {
 }
 
 func (f FlagSet) UnquoteUsage(fl *Flag) (string, string) {
-	flag := f.vars[fl.Name]
-	return flag.Name, flag.Usage
+	// Look for a back-quoted name, but avoid the strings package.
+	name := ""
+	usage := fl.Usage
+	for i := 0; i < len(usage); i++ {
+		if usage[i] == '`' {
+			for j := i + 1; j < len(usage); j++ {
+				if usage[j] == '`' {
+					name = usage[i+1 : j]
+					usage = usage[:i] + name + usage[j+1:]
+					return name, usage
+				}
+			}
+			break // Only one back quote; use type name.
+		}
+	}
+	// No explicit name, so use type if we can find one.
+	/* name := "value"
+	switch flag.Value.(type) {
+	case boolFlag:
+		name = ""
+	case *durationValue:
+		name = "duration"
+	case *float64Value:
+		name = "float"
+	case *intValue, *int64Value:
+		name = "int"
+	case *stringValue:
+		name = "string"
+	case *uintValue, *uint64Value:
+		name = "uint"
+	} */
+	return name, usage
 }
 
 func (f FlagSet) VisitAll(fn func(f *Flag)) {
