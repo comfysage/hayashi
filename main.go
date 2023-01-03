@@ -101,6 +101,8 @@ func main() {
 			}
 		}
 		break
+	default:
+		cli.Help()
 	}
 
 	os.Exit(0)
