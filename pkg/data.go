@@ -27,6 +27,10 @@ func GetPkg(name string) (Pkg, error) {
 	} else {
 		pkg.FromString(fh)
 	}
+
+	// infer information
+	pkg.InferInfo()
+
 	return pkg, nil
 }
 
