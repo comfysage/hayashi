@@ -56,6 +56,22 @@ func main() {
 		}
 		break
 
+		// .. config <>
+	case "config":
+		switch argv {
+		// .. config init
+		case "init":
+			err := cli.Init()
+			cli.Err(err)
+			break
+		// .. config create
+		case "create":
+			err := cli.Create()
+			cli.Err(err)
+			break
+		}
+		break
+
 	// .. show <...>
 	case "show":
 		err := cli.Show(argv)
