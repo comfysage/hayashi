@@ -22,7 +22,7 @@ func main() {
 		cli.Help()
 	}
 
-	cmd, argv := cli.Flags.Arg(0), cli.Flags.Arg(1)
+	cmd := cli.Flags.Arg(0)
 	args := cli.Flags.Args()
 
 	if len(args) == 0 {
@@ -38,6 +38,7 @@ func main() {
 			os.Exit(1)
 		}
 
+		argv := cli.Flags.Arg(1)
 		switch argv {
 
 		// .. pkg add <>
@@ -61,6 +62,7 @@ func main() {
 
 		// .. config <>
 	case "config":
+		argv := cli.Flags.Arg(1)
 		switch argv {
 		// .. config init
 		case "init":
@@ -77,6 +79,7 @@ func main() {
 
 	// .. show <...>
 	case "show":
+		argv := cli.Flags.Arg(1)
 		err := cli.Show(argv)
 		cli.Err(err)
 		if len(args) > 2 {
@@ -89,6 +92,7 @@ func main() {
 
 	// .. add <...>
 	case "add":
+		argv := cli.Flags.Arg(1)
 		err := cli.Install(argv, force, config.DeepClone)
 		cli.Err(err)
 		if len(args) > 2 {
@@ -100,6 +104,7 @@ func main() {
 		break
 	// .. update <...>
 	case "update":
+		argv := cli.Flags.Arg(1)
 		err := cli.Update(argv, force, config.DeepClone)
 		cli.Err(err)
 		if len(args) > 2 {
@@ -111,6 +116,7 @@ func main() {
 		break
 	// .. remove <...>
 	case "remove":
+		argv := cli.Flags.Arg(1)
 		err := cli.Uninstall(argv)
 		cli.Err(err)
 		if len(args) > 2 {
