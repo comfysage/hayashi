@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+func PathConfig() string {
+	return HAYASHI_ROOT + "/.hayashi.yaml"
+}
+
 func pathCl(name string) string {
 	return PKG_ROOT + "/" + name
 }
