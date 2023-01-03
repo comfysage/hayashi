@@ -65,7 +65,7 @@ func Start(config pkg.Config) error {
 			err := Remove(args[0])
 			return err
 		}
-		break
+		return fmt.Errorf("no matching subcommand for pkg command")
 
 		// .. config <>
 	case "config":
@@ -80,7 +80,7 @@ func Start(config pkg.Config) error {
 			err := Create()
 			return err
 		}
-		break
+		return fmt.Errorf("no matching subcommand for config command")
 
 	// .. show <...>
 	case "show":
