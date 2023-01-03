@@ -4,18 +4,18 @@ import (
 	"github.com/crispybaccoon/hayashi/pkg"
 )
 
-func show(pkg pkg.Pkg) {
-	printf(COLOR_MAGENTA + pkg.Name)
+func show(p pkg.Pkg) {
+	printf(COLOR_MAGENTA + p.Name)
 
-	if pkg.Desc != "" {
-		printf(pkg.Desc)
+	if p.Desc != "" {
+		printf(p.Desc)
 	}
-	if pkg.Url != "" {
-		printf(COLOR_CYAN + "url  " + COLOR_RESET + pkg.Url)
+	if p.Url != "" {
+		printf(COLOR_CYAN + "url  " + COLOR_RESET + p.Url)
 	}
-	if len(pkg.Install) > 0 {
+	if len(p.Install) > 0 {
 		printf(COLOR_CYAN + "bash")
-		for _, s := range pkg.Install {
+		for _, s := range p.Install {
 			printf("  " + COLOR_GREEN + s)
 		}
 	}
