@@ -8,6 +8,17 @@ import (
 	"github.com/crispybaccoon/hayashi/util"
 )
 
+func Read() pkg.Config {
+
+	config, err := pkg.GetConfig()
+	if err != nil {
+		Err(fmt.Errorf(COLOR_RED + "could not read config file " + COLOR_CYAN +
+			util.PathConfig() + COLOR_RED + ". try running hayashi config create."))
+	}
+
+	return config
+}
+
 func Init() error {
 	err := os.MkdirAll(util.HAYASHI_ROOT, os.ModeAppend.Perm())
 	if err != nil {
