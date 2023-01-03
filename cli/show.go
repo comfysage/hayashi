@@ -5,7 +5,7 @@ import (
 )
 
 func show(p pkg.Pkg) {
-	printf(COLOR_MAGENTA + p.Name)
+	printf(COLOR_CYAN + p.Collection + "/" + COLOR_MAGENTA + p.Name)
 
 	if p.Desc != "" {
 		printf(p.Desc)
