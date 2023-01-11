@@ -59,7 +59,7 @@ func Init() error {
 	if err != nil {
 		return err
 	}
-	_, err = mkdir(util.PathPkg("custom", ""))
+	_, err = mkdir(util.PathCl("custom"))
 	if err != nil {
 		return err
 	}
