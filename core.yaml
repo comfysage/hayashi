@@ -1,0 +1,6 @@
+pkg: core
+url:
+  github.com/crispybaccoon/pkg
+
+install:
+  - ln -sr . ../../pkg/core
