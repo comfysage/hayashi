@@ -105,8 +105,13 @@ func Start(config pkg.Config) error {
 		if len(args) < 0 {
 			Err(fmt.Errorf("not enough arguments"))
 		}
+		var err error
 		for _, s := range args {
-			err := Install(s, force, config.DeepClone)
+			if local {
+				err = InstallLocal(s, force, config.DeepClone)
+			} else {
+				err = Install(s, force, config.DeepClone)
+			}
 			return err
 		}
 		return nil
