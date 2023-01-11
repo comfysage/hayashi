@@ -1,6 +1,12 @@
 package cli
 
 import (
+	"os"
+
+	"github.com/alecthomas/chroma"
+	"github.com/alecthomas/chroma/formatters"
+	"github.com/alecthomas/chroma/lexers"
+	"github.com/alecthomas/chroma/styles"
 	"github.com/crispybaccoon/hayashi/pkg"
 )
 
@@ -28,6 +34,35 @@ func Show(name string) error {
 	}
 
 	show(pkg)
+
+	return nil
+}
+
+func ShowPkg(name string) error {
+	p, err := pkg.GetPkg(name)
+	if err != nil {
+		return err
+	}
+	str, err := p.String()
+	if err != nil {
+		return err
+	}
+
+	lexer := lexers.Get("yaml")
+	if lexer == nil {
+		lexer = lexers.Fallback
+	}
+	lexer = chroma.Coalesce(lexer)
+	style := styles.Monokai
+	if style == nil {
+		style = styles.Fallback
+	}
+	formatter := formatters.TTY16
+	if formatter == nil {
+		formatter = formatters.Fallback
+	}
+	iterator, err := lexer.Tokenise(nil, str)
+	err = formatter.Format(os.Stdout, style, iterator)
 
 	return nil
 }
