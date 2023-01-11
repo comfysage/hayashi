@@ -11,6 +11,8 @@ func Start(config pkg.Config) error {
 
 	force := false
 	Flags.BoolVar(&force, "force", "Force install or override pkg config")
+	local := false
+	Flags.BoolVar(&local, "local", "Local install or add local pkg config")
 	help := false
 	Flags.BoolVar(&help, "help", "Show help message")
 	err := Flags.Parse(os.Args[1:])
