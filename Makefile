@@ -39,4 +39,7 @@ pkg_test: ${BIN}
 	@echo "\033[01;35m$$\033[0m ${NAME} pkg remove pkg_name"
 	@${BIN} pkg remove pkg_name
 
-.PHONY: all test clean
+install: ${BIN}
+	go install .
+
+.PHONY: all test clean install
