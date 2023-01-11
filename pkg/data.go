@@ -8,12 +8,7 @@ import (
 	"github.com/crispybaccoon/hayashi/util"
 )
 
-func GetPkg(name string) (Pkg, error) {
-	path, err := util.PkgSearch(name)
-	if err != nil {
-		return Pkg{}, err
-	}
-
+func GetPkgFromPath(path string) (Pkg, error) {
 	fh, err := os.Open(path)
 	if err != nil {
 		return Pkg{}, err
@@ -32,6 +27,16 @@ func GetPkg(name string) (Pkg, error) {
 	pkg.InferInfo(path)
 
 	return pkg, nil
+}
+
+func GetPkg(name string) (Pkg, error) {
+	path, err := util.PkgSearch(name)
+	if err != nil {
+		return Pkg{}, err
+	}
+
+	pkg, err := GetPkgFromPath(path)
+	return pkg, err
 }
 
 func SavePkg(pkg Pkg) error {
