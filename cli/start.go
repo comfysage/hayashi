@@ -54,6 +54,10 @@ func Start(config pkg.Config) error {
 			}
 			args = args[2:]
 			var err error
+			if local {
+				err = AddLocal(args[0], force)
+				return err
+			}
 			if len(args[1]) > 0 {
 				err = AddWithUrl(args[0], args[1], force)
 			} else {
