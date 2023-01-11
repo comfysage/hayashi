@@ -90,12 +90,11 @@ func (f *FlagSet) BoolVar(pt *bool, name string, usage string) error {
 }
 
 // parseOne parses one flag. It reports whether a flag was seen.
-func (f *FlagSet) parseOne() (bool, error) {
+func (f *FlagSet) parseOne() (int, error) {
 	if len(f.pargs) == 0 {
-		return false, nil
+		return -1, nil
 	}
 	for i, s := range f.pargs {
-		f.pargs = f.pargs[i:]
 		if len(s) < 2 || s[0] != '-' {
 			continue
 		}
@@ -115,13 +114,13 @@ func (f *FlagSet) parseOne() (bool, error) {
 		if !ok {
 			if name == "help" || name == "h" { //	special	case	for	nice	help	message.
 				f.usage()
-				return false, fmt.Errorf("printing	help	message.")
+				return -1, fmt.Errorf("printing	help	message.")
 			}
-			return false, fmt.Errorf("flag	provided	but	not	defined:	-%s", name)
+			return -1, fmt.Errorf("flag	provided	but	not	defined:	-%s", name)
 		}
 
 		if *flag.Value {
-			return true, nil // flag found in previous loop
+			return i, nil // flag found in previous loop
 		}
 
 		// remove all flags equivalent to
@@ -135,10 +134,10 @@ func (f *FlagSet) parseOne() (bool, error) {
 		f.args = nargs
 
 		*flag.Value = true
-		return true, nil
+		return i, nil
 	}
 
-	return false, nil
+	return -1, nil
 }
 
 // Parse parses flag definitions from the argument list, which should not
@@ -155,8 +154,8 @@ func (f *FlagSet) Parse(arguments []string) error {
 		if err != nil {
 			return err
 		}
-		if seen {
-			f.pargs = f.pargs[1:]
+		if seen > -1 {
+			f.pargs = f.pargs[seen+1:]
 			continue
 		}
 		break
