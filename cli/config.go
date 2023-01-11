@@ -66,9 +66,9 @@ func Init() error {
 		return err
 	}
 
-	if !util.PathExists(util.PathCl("core")) {
+	if !util.PkgExists("custom", "core") {
 		printf("fetching " + COLOR_MAGENTA + "core" + COLOR_RESET + " from " + COLOR_YELLOW + "https://github.com/crispybaccoon/hayashi" + COLOR_RESET + " ...")
-		p := "/tmp/core.yaml"
+		p := util.PathPkg("custom", "core")
 
 		cmd := exec.Command("curl", "-L", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
 		stdout, err := cmd.StderrPipe()
@@ -91,14 +91,11 @@ func Init() error {
 		if err != nil {
 			return err
 		}
+	}
 
+	if !util.PathExists(util.PathCl("core")) {
 		c := Read()
-		err = InstallLocal(p, true, c.DeepClone)
-		if err != nil {
-			return err
-		}
-
-		err = os.Remove(p)
+		err = InstallLocal(util.PathPkg("custom", "core"), true, c.DeepClone)
 		if err != nil {
 			return err
 		}
