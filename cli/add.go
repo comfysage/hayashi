@@ -23,6 +23,22 @@ func add(p pkg.Pkg, force bool) error {
 	return pkg.SavePkg(p)
 }
 
+func AddLocal(path string, force bool) error {
+	printf("adding " + COLOR_MAGENTA + path + COLOR_RESET + " ...")
+
+	p, err := pkg.GetPkgFromPath(path)
+	if err != nil {
+		return err
+	}
+
+	err = add(p, force)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func Add(name string, force bool) error {
 	printf("adding " + COLOR_MAGENTA + name + COLOR_RESET + " ...")
 
