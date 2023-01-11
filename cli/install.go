@@ -64,14 +64,8 @@ func install(p pkg.Pkg, force bool, deep_clone bool) error {
 	return nil
 }
 
-func Install(name string, force bool, deep_clone bool) error {
-
-	p, err := pkg.GetPkg(name)
-	if err != nil {
-		return err
-	}
-
-	err = clone_pkg(p, force, deep_clone)
+func startInstall(p pkg.Pkg, force bool, deep_clone bool) error {
+	err := clone_pkg(p, force, deep_clone)
 	if err != nil {
 		return err
 	}
@@ -82,6 +76,21 @@ func Install(name string, force bool, deep_clone bool) error {
 	}
 
 	err = AddInstalled(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func Install(name string, force bool, deep_clone bool) error {
+
+	p, err := pkg.GetPkg(name)
+	if err != nil {
+		return err
+	}
+
+	err = startInstall(p, force, deep_clone)
 	if err != nil {
 		return err
 	}
