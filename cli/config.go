@@ -32,20 +32,34 @@ func Read() pkg.Config {
 	return config
 }
 
+// mkdir `path` if directory does not already exists.
+// if path is created return true else return false
+func mkdir(path string) (bool, error) {
+	exists := util.PathExists(path)
+	if exists {
+		return false, nil
+	}
+	err := os.MkdirAll(path, os.ModeAppend.Perm())
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
 func Init() error {
-	err := os.MkdirAll(util.HAYASHI_ROOT, os.ModeAppend.Perm())
+	_, err := mkdir(util.HAYASHI_ROOT)
 	if err != nil {
 		return err
 	}
-	err = os.MkdirAll(util.PKG_ROOT, os.ModeAppend.Perm())
+	_, err = mkdir(util.PKG_ROOT)
 	if err != nil {
 		return err
 	}
-	err = os.MkdirAll(util.REPO_ROOT, os.ModeAppend.Perm())
+	_, err = mkdir(util.REPO_ROOT)
 	if err != nil {
 		return err
 	}
-	err = os.MkdirAll(util.PathPkg("custom", ""), os.ModeAppend.Perm())
+	_, err = mkdir(util.PathPkg("custom", ""))
 	if err != nil {
 		return err
 	}
