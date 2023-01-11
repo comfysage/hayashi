@@ -2,7 +2,9 @@ package cli
 
 import (
 	"fmt"
+	"io"
 	"os"
+	"os/exec"
 
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
@@ -62,6 +64,44 @@ func Init() error {
 	_, err = mkdir(util.PathCl("custom"))
 	if err != nil {
 		return err
+	}
+
+	if !util.PathExists(util.PathCl("core")) {
+		printf("fetching " + COLOR_MAGENTA + "core" + COLOR_RESET + " from " + COLOR_YELLOW + "https://github.com/crispybaccoon/hayashi" + COLOR_RESET + " ...")
+		p := "/tmp/core.yaml"
+
+		cmd := exec.Command("curl", "-L", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
+		stdout, err := cmd.StderrPipe()
+		if err != nil {
+			return err
+		}
+
+		err = cmd.Start()
+		if err != nil {
+			return err
+		}
+
+		s, err := io.ReadAll(stdout)
+		if err != nil {
+			return err
+		}
+		printf(string(s))
+
+		err = cmd.Wait()
+		if err != nil {
+			return err
+		}
+
+		c := Read()
+		err = InstallLocal(p, true, c.DeepClone)
+		if err != nil {
+			return err
+		}
+
+		err = os.Remove(p)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
