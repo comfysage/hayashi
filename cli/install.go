@@ -83,6 +83,21 @@ func startInstall(p pkg.Pkg, force bool, deep_clone bool) error {
 	return nil
 }
 
+func InstallLocal(path string, force bool, deep_clone bool) error {
+
+	p, err := pkg.GetPkgFromPath(path)
+	if err != nil {
+		return err
+	}
+
+	err = startInstall(p, force, deep_clone)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func Install(name string, force bool, deep_clone bool) error {
 
 	p, err := pkg.GetPkg(name)
