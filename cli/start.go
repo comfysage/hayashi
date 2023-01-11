@@ -73,6 +73,15 @@ func Start(config pkg.Config) error {
 			args = args[2:]
 			err := Remove(args[0])
 			return err
+
+		// .. pkg show <>
+		case "show":
+			if len(args) < 3 {
+				return fmt.Errorf("not enough arguments to call")
+			}
+			args = args[2:]
+			err := ShowPkg(args[0])
+			return err
 		}
 		return fmt.Errorf("no matching subcommand for pkg command")
 
