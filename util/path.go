@@ -10,7 +10,7 @@ func PathConfig() string {
 	return HAYASHI_ROOT + "/.hayashi.yaml"
 }
 
-func pathCl(name string) string {
+func PathCl(name string) string {
 	return PKG_ROOT + "/" + name
 }
 
@@ -19,7 +19,7 @@ func pkgName(name string) string {
 }
 
 func PathPkg(cl string, name string) string {
-	return pathCl(cl) + "/" + pkgName(name)
+	return PathCl(cl) + "/" + pkgName(name)
 }
 
 func PathExists(p string) bool {
@@ -35,8 +35,8 @@ func PkgSearch(name string) (string, error) {
 	if PkgExists("core", name) {
 		return PathPkg("core", name), nil
 	}
-	if PathExists(pathCl("core") + "/" + name + ".ini") {
-		return pathCl("core") + "/" + name + ".ini", nil
+	if PathExists(PathCl("core") + "/" + name + ".ini") {
+		return PathCl("core") + "/" + name + ".ini", nil
 	}
 
 	fd, err := ioutil.ReadDir(PKG_ROOT)
