@@ -5,9 +5,22 @@ NAME = hayashi
 
 BIN_WIN   = ./${NAME}.exe
 BIN_LINUX = ./${NAME}
-BIN       = ${BIN_LINUX}
 
-all: ${BIN_LINUX}
+ifeq ($(OS),Windows_NT)
+	## Windows
+	BIN = ${BIN_WIN}
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+	## Linux
+	BIN = ${BIN_LINUX}
+endif
+ifeq ($(UNAME_S),Darwin)
+	## Macos
+	BIN = ${BIN_LINUX}
+endif
+
+all: ${BIN}
 
 ${BIN_LINUX}: ${MAIN}
 	env GOOS=linux GOARCH=amd64 $(CC) -o ${BIN_LINUX} .
