@@ -23,10 +23,10 @@ endif
 all: ${BIN}
 
 ${BIN_LINUX}: ${MAIN}
-	env GOOS=linux GOARCH=amd64 $(CC) -o ${BIN_LINUX} .
+	env GOOS=linux $(CC) -o ${BIN_LINUX} .
 
 ${BIN_WIN}: ${MAIN}
-	env GOOS=windows GOARCH=amd64 $(CC) -o ${BIN_WIN} .
+	env GOOS=windows $(CC) -o ${BIN_WIN} .
 
 clean:
 	rm ${BIN_LINUX} -r
