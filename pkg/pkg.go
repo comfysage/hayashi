@@ -7,14 +7,13 @@ import (
 
 type Pkg struct {
 	Name       string   `yaml:"pkg"`
-	Url        string   `yaml:"url"`
-	Desc       string   `yaml:"desc"`
-	Collection string   `yaml:"collection"`
-	Install    []string `yaml:"install,flow"`
-	Remove     []string `yaml:"remove,flow"`
-	Update     []string `yaml:"update,flow"`
+	Url        string   `yaml:"url,omitempty"`
+	Desc       string   `yaml:"desc,omitempty"`
+	Collection string   `yaml:"collection,omitempty"`
+	Install    []string `yaml:"install,omitempty"`
+	Remove     []string `yaml:"remove,omitempty"`
+	Update     []string `yaml:"update,omitempty"`
 
-	Bin string `yaml:"bin"`
 }
 
 func (pkg *Pkg) inferCollection(path string) error {
