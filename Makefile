@@ -54,5 +54,7 @@ pkg_test: ${BIN}
 
 install: ${BIN}
 	go install .
+stats:
+	wc --lines **/*.go
 
-.PHONY: all test clean install
+.PHONY: all test clean install stats
