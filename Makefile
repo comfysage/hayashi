@@ -19,6 +19,7 @@ ifeq ($(UNAME_S),Darwin)
 	## Macos
 	BIN = ${BIN_LINUX}
 endif
+endif
 
 all: ${BIN}
 
