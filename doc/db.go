@@ -2,6 +2,10 @@ package doc
 
 import "fmt"
 
+func DefineDocs(documents docs) Docs {
+	return Docs{documents: documents}
+}
+
 func (db Docs) FindQuery(query []string, flags []string) (*Doc, error) {
 
 	q := query[0]

@@ -49,3 +49,11 @@ var (
 		},
 	}
 )
+
+var DOCS = DefineDocs(docs{
+	&HELP_DOC,
+	&CONFIG_DOC,
+	&PKG_DOC,
+	&PKG_SHOW_DOC,
+	&PKG_ADD_DOC,
+})
