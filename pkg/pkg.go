@@ -2,7 +2,11 @@ package pkg
 
 import (
 	"fmt"
+	"path/filepath"
+	fpath "path"
 	"strings"
+
+	"github.com/crispybaccoon/hayashi/util"
 )
 
 type Pkg struct {
@@ -20,7 +24,16 @@ func (pkg *Pkg) inferCollection(path string) error {
 	if len(pkg.Collection) > 0 {
 		return nil
 	}
-	sp := strings.Split(path, "/")
+	cwd, err := util.GetCwd()
+	if err != nil {
+		return err
+	}
+	abspath, err := filepath.Abs(fpath.Join(cwd, path))
+	if err != nil {
+		return err
+	}
+
+	sp := strings.Split(abspath, "/")
 	if len(sp) < 2 {
 		return fmt.Errorf("path to pkg not long enough")
 	}
