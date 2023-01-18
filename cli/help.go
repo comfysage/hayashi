@@ -3,62 +3,38 @@ package cli
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/crispybaccoon/hayashi/doc"
 )
 
 func Help(exitcode int) {
+	printf(doc.HELP_DOC.String())
 	Flags.usage()
 	os.Exit(exitcode)
 }
 
 func (f *FlagSet) usage() {
-
-	space := func(n int) string {
-		return (strings.Repeat(" ", n))
-	}
-
-	fmt.Println("hayashi. a tiny distro-independent package manager written in Go.")
-
-	spacing := 2
-	bspacing := spacing
-	shiftw := 20
-	linelen := 45
-
-	fmt.Printf("\n" + space(bspacing) +"usage: \n\n")
+	flagdocs := []doc.Shortdoc{}
 
 	Flags.VisitAll(func(f *Flag) {
-		var b strings.Builder
+		flagdoc := doc.Shortdoc{}
 		if len(f.Name) > 1 {
-			fmt.Fprintf(&b, space(bspacing) + "--%s", f.Name)
+			flagdoc[0] = fmt.Sprintf("--%s", f.Name)
 		} else {
-			fmt.Fprintf(&b, space(bspacing) + "-%s", f.Name)
+			flagdoc[0] = fmt.Sprintf("-%s", f.Name)
 		}
-		name, usage := Flags.UnquoteUsage(f)
-		if len(name) > 0 {
-			b.WriteString(" ")
-			b.WriteString(name)
-		}
+		_, usage := Flags.UnquoteUsage(f)
+		flagdoc[1] = usage
+		flagdoc[2] = ""
 
-		if b.Len() > shiftw {
-			b.WriteString("\n" + space(shiftw))
-		} else {
-			b.WriteString(space(shiftw - b.Len()))
-		}
-		b.WriteString(space(spacing))
-		usage = strings.ReplaceAll(usage, "\n", "\n"+space(spacing))
-		for i, s := range usage {
-			if i+1%linelen == 0 {
-				b.WriteString("\n" + space(shiftw+spacing))
-			}
-			b.WriteString(string(s))
-		}
-
-		fmt.Fprintf(&b, " (default %v)", f.DefValue)
-		fmt.Fprint(os.Stderr, b.String(), "\n")
+		flagdocs = append(flagdocs, flagdoc)
 	})
 
+	helpman := doc.ManDoc{
+		Flagdoc: flagdocs,
+	}.String()
+
+	printf(helpman)
 }
 
 func GetHelp(query []string, allflags []string) error {
