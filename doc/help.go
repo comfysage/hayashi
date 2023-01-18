@@ -31,6 +31,7 @@ var (
 	PKG_SHOW_DOC = Doc{
 		Name: "pkg-show",
 		Man: ManDoc{
+			Name: "show",
 			Short: "Show pkg configuration",
 			Long:  "Show yaml contents of a pkg",
 			Usage: "ysi pkg show <pkg_name>",
@@ -39,6 +40,7 @@ var (
 	PKG_ADD_DOC = Doc{
 		Name: "pkg-add",
 		Man: ManDoc{
+			Name: "add",
 			Short: "Add pkg configuration",
 			Long:  "Add a pkg from the commandline or add a local configuration to global configurations",
 			Usage: "ysi pkg add <pkg_name> [<git_url>]",
