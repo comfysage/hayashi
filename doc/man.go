@@ -10,6 +10,9 @@ func (d Shortdoc) ShortString() string {
 }
 
 func (d Doc) ShortString() string {
+	if len(d.Man.Name) > 0 {
+	return generateLineDoc([2]string{d.Man.Name, d.Man.Short})
+	}
 	return generateLineDoc([2]string{d.Name, d.Man.Short})
 }
 
