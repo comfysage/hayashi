@@ -21,21 +21,21 @@ func Start(config pkg.Config) error {
 	}
 
 	if help {
-		Help()
+		Help(0)
 	}
 
 	cmd := Flags.Arg(0)
 	args := Flags.Args()
 
 	if len(args) == 0 {
-		Help()
+		Help(1)
 	}
 
 	switch cmd {
 
 	// .. help
 	case "help":
-		Help()
+		Help(0)
 		return nil
 
 	case "list":
@@ -151,7 +151,7 @@ func Start(config pkg.Config) error {
 		}
 		return nil
 	default:
-		Help()
+		Help(1)
 	}
 
 	return nil

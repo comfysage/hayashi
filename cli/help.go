@@ -8,8 +8,9 @@ import (
 	"github.com/crispybaccoon/hayashi/doc"
 )
 
-func Help() {
+func Help(exitcode int) {
 	Flags.usage()
+	os.Exit(exitcode)
 }
 
 func (f *FlagSet) usage() {
@@ -58,7 +59,6 @@ func (f *FlagSet) usage() {
 		fmt.Fprint(os.Stderr, b.String(), "\n")
 	})
 
-	os.Exit(0)
 }
 
 func GetHelp(query []string, allflags []string) error {
