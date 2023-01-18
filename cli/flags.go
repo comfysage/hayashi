@@ -31,6 +31,24 @@ func (f FlagSet) Args() []string {
 	return f.args
 }
 
+func (f FlagSet) AllFlags() []string {
+	allflags := []string{}
+
+	f.VisitAll(func(f *Flag) {
+		if !*f.Value {
+			return
+		}
+
+		if len(f.Name) > 1 {
+		allflags = append(allflags, fmt.Sprintf("--%v", f.Name))
+			return
+		}
+		allflags = append(allflags, fmt.Sprintf("-%v", f.Name))
+	})
+
+	return allflags
+}
+
 func (f FlagSet) UnquoteUsage(fl *Flag) (string, string) {
 	// Look for a back-quoted name, but avoid the strings package.
 	name := ""
