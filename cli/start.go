@@ -35,7 +35,12 @@ func Start(config pkg.Config) error {
 
 	// .. help
 	case "help":
+		if len(args) > 1 {
+			err := GetHelp(args[1:], Flags.AllFlags())
+			return err
+		}
 		Help(0)
+
 		return nil
 
 	case "list":
