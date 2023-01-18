@@ -14,6 +14,11 @@ var HELP_DOC = Doc{
 }
 var CONFIG_DOC = Doc{
 	Name: "config",
+	Man: ManDoc{
+		Short: "Manage global configuration",
+		Long: "",
+		Usage: "",
+	},
 }
 var PKG_DOC = Doc{
 	Name: "pkg",
