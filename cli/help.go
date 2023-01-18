@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/crispybaccoon/hayashi/doc"
 )
 
 func Help() {
@@ -57,4 +59,16 @@ func (f *FlagSet) usage() {
 	})
 
 	os.Exit(0)
+}
+
+func GetHelp(query []string, allflags []string) error {
+
+	doc, err := doc.DOCS.FindQuery(query, allflags)
+	if err != nil {
+		return err
+	}
+
+	printf(doc.String())
+
+	return nil
 }
