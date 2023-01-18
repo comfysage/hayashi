@@ -17,7 +17,7 @@ var CONFIG_DOC = Doc{
 	Man: ManDoc{
 		Short: "Manage global configuration",
 		Long: "",
-		Usage: "",
+		Usage: "ysi config <command>",
 	},
 }
 var PKG_DOC = Doc{
