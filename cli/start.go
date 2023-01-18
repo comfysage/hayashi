@@ -80,7 +80,7 @@ func Start(config pkg.Config) error {
 				return fmt.Errorf("not enough arguments to call")
 			}
 			args = args[2:]
-			err := ShowPkg(args[0])
+			err := ShowPkg(args[0], local)
 			return err
 		}
 		return fmt.Errorf("no matching subcommand for pkg command")

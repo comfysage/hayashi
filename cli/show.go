@@ -38,10 +38,19 @@ func Show(name string) error {
 	return nil
 }
 
-func ShowPkg(name string) error {
-	p, err := pkg.GetPkg(name)
-	if err != nil {
-		return err
+func ShowPkg(name string, local bool) error {
+	var p pkg.Pkg
+	var err error
+	if local {
+		p, err = pkg.GetPkgFromPath(name)
+		if err != nil {
+			return err
+		}
+	} else {
+		p, err = pkg.GetPkg(name)
+		if err != nil {
+			return err
+		}
 	}
 	str, err := p.String()
 	if err != nil {
