@@ -2,8 +2,8 @@ package pkg
 
 import (
 	"fmt"
-	"path/filepath"
 	fpath "path"
+	"path/filepath"
 	"strings"
 
 	"github.com/crispybaccoon/hayashi/util"
@@ -17,7 +17,6 @@ type Pkg struct {
 	Install    []string `yaml:"install,omitempty"`
 	Remove     []string `yaml:"remove,omitempty"`
 	Update     []string `yaml:"update,omitempty"`
-
 }
 
 func (pkg *Pkg) inferCollection(path string) error {
