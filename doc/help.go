@@ -18,8 +18,32 @@ var CONFIG_DOC = Doc{
 		Short: "Manage global configuration",
 		Long: "",
 		Usage: "ysi config <command>",
+		Cmddoc: docs{
+			&CONFIG_INIT_DOC,
+			&CONFIG_CREATE_DOC,
+		},
 	},
 }
+var (
+	CONFIG_INIT_DOC = Doc{
+		Name: "config-init",
+		Man: ManDoc{
+			Name: "init",
+			Short: "Setup hayashi",
+			Long:  "Create configuration structure and setup core collection.\nFetch core collection pkg and install.",
+			Usage: "ysi config init",
+		},
+	}
+	CONFIG_CREATE_DOC = Doc{
+		Name: "config-create",
+		Man: ManDoc{
+			Name: "create",
+			Short: "Setup .hayashi.yaml",
+			Long:  "Create default configuration file",
+			Usage: "ysi config create",
+		},
+	}
+)
 var PKG_DOC = Doc{
 	Name: "pkg",
 	Man: ManDoc{
@@ -60,6 +84,8 @@ var (
 var DOCS = DefineDocs(docs{
 	&HELP_DOC,
 	&CONFIG_DOC,
+	&CONFIG_INIT_DOC,
+	&CONFIG_CREATE_DOC,
 	&PKG_DOC,
 	&PKG_SHOW_DOC,
 	&PKG_ADD_DOC,
