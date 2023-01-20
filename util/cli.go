@@ -6,14 +6,14 @@ import (
 )
 
 func GetCwd() (string, error) {
-	exe, err := os.Executable()
+	wd, err := os.Getwd()
 	if err != nil {
 		return "", err
 	}
-	exep, err := filepath.EvalSymlinks(exe)
+	wdp, err := filepath.EvalSymlinks(wd)
 	if err != nil {
 		return "", err
 	}
-	cwd := filepath.Dir(exep)
-	return cwd, nil
+	return wdp, nil
+}
 }
