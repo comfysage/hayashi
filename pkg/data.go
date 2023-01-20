@@ -27,6 +27,11 @@ func GetPkgFromPath(path string) (Pkg, error) {
 		pkg.FromString(fh)
 	}
 
+	err = pkg.SafeGuard()
+	if err != nil {
+		return Pkg{}, err
+	}
+
 	// infer information
 	err = pkg.InferInfo(path)
 	if err != nil {

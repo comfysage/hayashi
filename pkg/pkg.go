@@ -84,3 +84,19 @@ func (pkg *Pkg) InferInfo(path string) error {
 
 	return nil
 }
+
+// error checking for pkg to avoid unwanted behaviour
+func (pkg Pkg) SafeGuard() error {
+
+	// require pkg name
+	if len(pkg.Name) < 1 {
+		return fmt.Errorf("no pkg name specified.")
+	}
+
+	// require url
+	if len(pkg.Url) < 1 {
+		return fmt.Errorf("no url specified.")
+	}
+
+	return nil
+}
