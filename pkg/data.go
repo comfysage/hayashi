@@ -9,7 +9,11 @@ import (
 )
 
 func GetPkgFromPath(path string) (Pkg, error) {
-	fh, err := os.Open(path)
+	fullpath, err := util.ExtendPath(path)
+	if err != nil {
+		return Pkg{}, err
+	}
+	fh, err := os.Open(fullpath)
 	if err != nil {
 		return Pkg{}, err
 	}
