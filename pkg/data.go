@@ -28,7 +28,10 @@ func GetPkgFromPath(path string) (Pkg, error) {
 	pkgRead := 0
 	isYaml, _ := util.HasCorrectFileExtension(fullpath, ".yaml")
 	if isYaml {
-		pkg.FromString(fh)
+		err = pkg.FromString(fh)
+		if err != nil {
+			return Pkg{}, err
+		}
 		pkgRead++
 	}
 	isIni, _ := util.HasCorrectFileExtension(fullpath, ".ini")
