@@ -28,7 +28,10 @@ func GetPkgFromPath(path string) (Pkg, error) {
 	}
 
 	// infer information
-	pkg.InferInfo(path)
+	err = pkg.InferInfo(path)
+	if err != nil {
+		return Pkg{}, err
+	}
 
 	return pkg, nil
 }
