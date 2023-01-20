@@ -26,12 +26,12 @@ func GetPkgFromPath(path string) (Pkg, error) {
 	}
 
 	pkgRead := 0
-	isYaml, _ := util.HasCorrectFileExtension(fullpath, "yaml")
+	isYaml, _ := util.HasCorrectFileExtension(fullpath, ".yaml")
 	if isYaml {
 		pkg.FromString(fh)
 		pkgRead++
 	}
-	isIni, _ := util.HasCorrectFileExtension(fullpath, "ini")
+	isIni, _ := util.HasCorrectFileExtension(fullpath, ".ini")
 	if isIni {
 		scanner := bufio.NewScanner(fh)
 		pkg.IniFromString(*scanner)
