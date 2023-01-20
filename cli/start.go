@@ -108,7 +108,7 @@ func Start(config pkg.Config) error {
 	// .. show <...>
 	case "show":
 		args = args[1:]
-		if len(args) < 0 {
+		if len(args) < 1 {
 			Err(fmt.Errorf("not enough arguments"))
 		}
 		for _, s := range args {
@@ -120,7 +120,7 @@ func Start(config pkg.Config) error {
 	// .. add <...>
 	case "add":
 		args = args[1:]
-		if len(args) < 0 {
+		if len(args) < 1 {
 			Err(fmt.Errorf("not enough arguments"))
 		}
 		var err error
@@ -136,7 +136,7 @@ func Start(config pkg.Config) error {
 	// .. update <...>
 	case "update":
 		args = args[1:]
-		if len(args) < 0 {
+		if len(args) < 1 {
 			Err(fmt.Errorf("not enough arguments"))
 		}
 		for _, s := range args {
@@ -147,7 +147,7 @@ func Start(config pkg.Config) error {
 	// .. remove <...>
 	case "remove":
 		args = args[1:]
-		if len(args) < 0 {
+		if len(args) < 1 {
 			Err(fmt.Errorf("not enough arguments"))
 		}
 		for _, s := range args {
