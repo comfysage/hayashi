@@ -19,12 +19,27 @@ func GetPkgFromPath(path string) (Pkg, error) {
 	}
 
 	var pkg Pkg
-	// fmt.Println("[ " + path[len(path)-4:] + " file ]")
-	if path[len(path)-4:] == ".ini" {
+
+	_, err = util.HasFileExtension(path)
+	if err != nil {
+		return Pkg{}, err
+	}
+
+	pkgRead := 0
+	isYaml, _ := util.HasCorrectFileExtension(path, "yaml")
+	if isYaml {
+		pkg.FromString(fh)
+		pkgRead++
+	}
+	isIni, _ := util.HasCorrectFileExtension(path, "ini")
+	if isIni {
 		scanner := bufio.NewScanner(fh)
 		pkg.IniFromString(*scanner)
-	} else {
-		pkg.FromString(fh)
+		pkgRead++
+	}
+
+	if pkgRead < 1 {
+		return Pkg{}, fmt.Errorf("no correct file extension; requires `ini` or `yaml` extension")
 	}
 
 	err = pkg.SafeGuard()
