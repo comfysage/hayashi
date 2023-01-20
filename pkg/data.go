@@ -71,7 +71,7 @@ func GetConfig() (Config, error) {
 		return Config{}, err
 	}
 
-	var config Config
+	var config Config = DefaultConfig()
 	config.FromString(fh)
 	return config, nil
 }
