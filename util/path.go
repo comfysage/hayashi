@@ -4,22 +4,31 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 func PathConfig() string {
-	return HAYASHI_ROOT + "/.hayashi.yaml"
+	return filepath.Join(HAYASHI_ROOT, CONFIG_NAME)
 }
 
 func PathCl(name string) string {
-	return PKG_ROOT + "/" + name
+	if len(name) == 0 {
+		panic("argument for collection name was nil")
+	}
+	return filepath.Join(PKG_ROOT, name)
 }
 
 func pkgName(name string) string {
+	if len(name) == 0 {
+		panic("argument for pkg name was nil")
+	}
 	return name + ".yaml"
 }
 
-func PathPkg(cl string, name string) string {
-	return PathCl(cl) + "/" + pkgName(name)
+func PathPkg(collection string, name string) string {
+	cl := PathCl(collection)
+	pkg_name := pkgName(name)
+	return filepath.Join(cl, pkg_name)
 }
 
 func PathExists(p string) bool {
@@ -28,24 +37,29 @@ func PathExists(p string) bool {
 }
 
 func PkgExists(cl string, name string) bool {
-	return PathExists(PathPkg(cl, name))
+	p := PathPkg(cl, name)
+	return PathExists(p)
 }
 
 func PkgSearch(name string) (string, error) {
 	if PkgExists("core", name) {
 		return PathPkg("core", name), nil
 	}
-	if PathExists(PathCl("core") + "/" + name + ".ini") {
-		return PathCl("core") + "/" + name + ".ini", nil
+
+	p := filepath.Join(PathCl("core"), name+".ini")
+	if PathExists(p) {
+		return p, nil
 	}
 
 	fd, err := ioutil.ReadDir(PKG_ROOT)
-	for _, d := range(fd) {
+	for _, d := range fd {
 		if !d.IsDir() {
 			continue
 		}
-		if PkgExists(d.Name(), name) {
-			return PathPkg(d.Name(), name), nil
+		clName := d.Name()
+
+		if PkgExists(clName, name) {
+			return PathPkg(clName, name), nil
 		}
 	}
 	if err != nil {
@@ -56,5 +70,8 @@ func PkgSearch(name string) (string, error) {
 }
 
 func PathRepo(name string) string {
-	return REPO_ROOT + "/" + name
+	if len(name) == 0 {
+		panic("argument for repo name was nil")
+	}
+	return filepath.Join(REPO_ROOT, name)
 }
