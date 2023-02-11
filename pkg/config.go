@@ -36,7 +36,14 @@ func (c *Config) AddInstalled(pkg Pkg) error {
 	if pkg.Name == "" {
 		return fmt.Errorf("no name defined for pkg")
 	}
-	c.Installed = append(c.Installed, pkg.Collection + "/" + pkg.Name)
+	
+	pkgString := pkg.Collection + "/" + pkg.Name
+	for _, s := range c.Installed {
+		if s == pkgString {
+			return nil
+		}
+	}
+	c.Installed = append(c.Installed, pkgString)
 	SaveConfig(*c)
 
 	return nil
