@@ -1,9 +1,9 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -83,29 +83,20 @@ func startInstall(p pkg.Pkg, force bool, deep_clone bool) error {
 	return nil
 }
 
-func InstallLocal(path string, force bool, deep_clone bool) error {
+func Install(name string) error {
+	var p pkg.Pkg
+	var err error
 
-	p, err := pkg.GetPkgFromPath(path)
+	if cfg.local {
+		p, err = pkg.GetPkgFromPath(name)
+	} else {
+		p, err = pkg.GetPkg(name)
+	}
 	if err != nil {
 		return err
 	}
 
-	err = startInstall(p, force, deep_clone)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func Install(name string, force bool, deep_clone bool) error {
-
-	p, err := pkg.GetPkg(name)
-	if err != nil {
-		return err
-	}
-
-	err = startInstall(p, force, deep_clone)
+	err = startInstall(p, cfg.force, cfg.config.DeepClone)
 	if err != nil {
 		return err
 	}

@@ -23,6 +23,14 @@ func AddInstalled(p pkg.Pkg) error {
 	return nil
 }
 
+type cliConfig struct {
+	config *pkg.Config
+	force  bool
+	local  bool
+}
+
+var cfg cliConfig
+
 func Read() pkg.Config {
 
 	config, err := pkg.GetConfig()
@@ -94,8 +102,11 @@ func Init() error {
 	}
 
 	if !util.PathExists(util.PathCl("core")) {
-		c := Read()
-		err = InstallLocal(util.PathPkg("custom", "core"), true, c.DeepClone)
+		p, err := pkg.GetPkgFromPath(util.PathPkg("custom", "core"))
+		if err != nil {
+			return err
+		}
+		err = install(p, true, cfg.config.DeepClone)
 		if err != nil {
 			return err
 		}

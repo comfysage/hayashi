@@ -8,11 +8,13 @@ import (
 )
 
 func Start(config pkg.Config) error {
+	cfg = cliConfig{}
+	cfg.config = &config
 
-	force := false
-	Flags.BoolVar(&force, "force", "Force install or override pkg config")
-	local := false
-	Flags.BoolVar(&local, "local", "Local install or add local pkg config")
+	cfg.force = false
+	Flags.BoolVar(&cfg.force, "force", "Force install or override pkg config")
+	cfg.local = false
+	Flags.BoolVar(&cfg.local, "local", "Local install or add local pkg config")
 	help := false
 	Flags.BoolVar(&help, "help", "Show help message")
 	err := Flags.Parse(os.Args[1:])
@@ -59,14 +61,16 @@ func Start(config pkg.Config) error {
 			}
 			args = args[2:]
 			var err error
-			if local {
-				err = AddLocal(args[0], force)
+			// .. pkg add <pkg file>
+			if cfg.local {
+				err = AddLocal(args[0])
 				return err
 			}
+			// .. pkg add <...pkg info>
 			if len(args) > 1 {
-				err = AddWithUrl(args[0], args[1], force)
+				err = AddWithUrl(args[0], args[1])
 			} else {
-				err = Add(args[0], force)
+				err = Add(args[0])
 			}
 			return err
 
@@ -85,7 +89,7 @@ func Start(config pkg.Config) error {
 				return fmt.Errorf("not enough arguments to call")
 			}
 			args = args[2:]
-			err := ShowPkg(args[0], local)
+			err := ShowPkg(args[0])
 			return err
 		}
 		return fmt.Errorf("no matching subcommand for pkg command")
@@ -125,11 +129,7 @@ func Start(config pkg.Config) error {
 		}
 		var err error
 		for _, s := range args {
-			if local {
-				err = InstallLocal(s, force, config.DeepClone)
-			} else {
-				err = Install(s, force, config.DeepClone)
-			}
+			err = Install(s)
 			return err
 		}
 		return nil
@@ -140,7 +140,7 @@ func Start(config pkg.Config) error {
 			Err(fmt.Errorf("not enough arguments"))
 		}
 		for _, s := range args {
-			err := Update(s, force, config.DeepClone)
+			err := Update(s)
 			return err
 		}
 		return nil

@@ -66,11 +66,11 @@ func update(p pkg.Pkg, force bool, deep_clone bool) error {
 	return nil
 }
 
-func Update(name string, force bool, deep_clone bool) error {
+func Update(name string) error {
 	p, err := pkg.GetPkg(name)
 	if err != nil {
 		return err
 	}
 
-	return update(p, force, deep_clone)
+	return update(p, cfg.force, cfg.config.DeepClone)
 }

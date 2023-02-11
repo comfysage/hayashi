@@ -23,7 +23,7 @@ func add(p pkg.Pkg, force bool) error {
 	return pkg.SavePkg(p)
 }
 
-func AddLocal(path string, force bool) error {
+func AddLocal(path string) error {
 	printf("adding " + COLOR_MAGENTA + path + COLOR_RESET + " ...")
 
 	p, err := pkg.GetPkgFromPath(path)
@@ -31,7 +31,7 @@ func AddLocal(path string, force bool) error {
 		return err
 	}
 
-	err = add(p, force)
+	err = add(p, cfg.force)
 	if err != nil {
 		return err
 	}
@@ -39,14 +39,14 @@ func AddLocal(path string, force bool) error {
 	return nil
 }
 
-func Add(name string, force bool) error {
+func Add(name string) error {
 	printf("adding " + COLOR_MAGENTA + name + COLOR_RESET + " ...")
 
-	return add(pkg.Pkg{Name: name}, force)
+	return add(pkg.Pkg{Name: name}, cfg.force)
 }
 
-func AddWithUrl(name string, url string, force bool) error {
+func AddWithUrl(name string, url string) error {
 	printf("adding " + COLOR_MAGENTA + name + COLOR_RESET + " ...")
 
-	return add(pkg.Pkg{Name: name, Url: url}, force)
+	return add(pkg.Pkg{Name: name, Url: url}, cfg.force)
 }
