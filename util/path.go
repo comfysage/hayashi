@@ -79,3 +79,10 @@ func PathRepo(name string) string {
 	}
 	return filepath.Join(REPO_ROOT, name)
 }
+
+func PathRepoFile(name string, path string) string {
+	if len(path) == 0 {
+		panic("argument for file name was nil")
+	}
+	return filepath.Join(PathRepo(name), path)
+}
