@@ -49,7 +49,7 @@ func mkdir(path string) (bool, error) {
 	if exists {
 		return false, nil
 	}
-	err := os.MkdirAll(path, os.ModeAppend.Perm())
+	err := os.MkdirAll(path, 0666)
 	if err != nil {
 		return false, err
 	}
