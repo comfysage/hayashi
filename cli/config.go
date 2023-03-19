@@ -11,12 +11,12 @@ import (
 )
 
 func AddInstalled(p pkg.Pkg) error {
-	config, err := pkg.GetConfig()
+	store, err := pkg.GetStoreFile()
 	if err != nil {
 		return err
 	}
 
-	err = config.AddInstalled(p)
+	err = store.AddInstalled(p)
 	if err != nil {
 		return err
 	}

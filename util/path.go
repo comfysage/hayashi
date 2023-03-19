@@ -11,6 +11,10 @@ func PathConfig() string {
 	return filepath.Join(HAYASHI_ROOT, CONFIG_NAME)
 }
 
+func PathStoreFile() string {
+	return filepath.Join(HAYASHI_ROOT, STORE_NAME)
+}
+
 func PathCl(name string) string {
 	if len(name) == 0 {
 		panic("argument for collection name was nil")

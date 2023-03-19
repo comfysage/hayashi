@@ -126,3 +126,42 @@ func SaveConfig(config Config) error {
 
 	return nil
 }
+
+func GetStoreFile() (StoreFile, error) {
+	bool := util.PathExists(util.PathStoreFile())
+	if bool == false {
+		store := DefaultStoreFile()
+		SaveStoreFile(store)
+		return GetStoreFile()
+	}
+
+	fh, err := os.Open(util.PathStoreFile())
+	if err != nil {
+		return StoreFile{}, err
+	}
+
+	store := DefaultStoreFile()
+	store.FromString(fh)
+	return store, nil
+}
+
+func SaveStoreFile(store StoreFile) error {
+	str, err := store.String()
+	if err != nil {
+		return err
+	}
+
+	fh, err := os.OpenFile(util.PathStoreFile(),
+		os.O_CREATE|os.O_RDWR, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	defer fh.Close()
+
+	if _, err = fh.WriteString(str); err != nil {
+		panic(err)
+	}
+
+	return nil
+}

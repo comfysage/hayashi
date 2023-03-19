@@ -8,9 +8,9 @@ import (
 	"github.com/crispybaccoon/hayashi/util"
 )
 
-func list(c pkg.Config) error {
+func list(c pkg.StoreFile) error {
 
-	printf("installed packages. " + COLOR_CYAN + util.PathConfig())
+	printf("installed packages. " + COLOR_CYAN + util.PathStoreFile())
 
 	for _, s := range c.Installed {
 		sp := strings.Split(s, "/")
@@ -24,13 +24,12 @@ func list(c pkg.Config) error {
 }
 
 func List() error {
-
-	config, err := pkg.GetConfig()
+	store, err := pkg.GetStoreFile()
 	if err != nil {
 		return err
 	}
 
-	err = list(config)
+	err = list(store)
 	if err != nil {
 		return err
 	}
