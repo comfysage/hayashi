@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"io"
-	"os"
 	"os/exec"
 
 	"github.com/crispybaccoon/hayashi/pkg"
@@ -42,34 +41,20 @@ func Read() pkg.Config {
 	return config
 }
 
-// mkdir `path` if directory does not already exists.
-// if path is created return true else return false
-func mkdir(path string) (bool, error) {
-	exists := util.PathExists(path)
-	if exists {
-		return false, nil
-	}
-	err := os.MkdirAll(path, 0666)
-	if err != nil {
-		return false, err
-	}
-	return true, nil
-}
-
 func Init() error {
-	_, err := mkdir(util.HAYASHI_ROOT)
+	_, err := util.Mkdir(util.HAYASHI_ROOT)
 	if err != nil {
 		return err
 	}
-	_, err = mkdir(util.PKG_ROOT)
+	_, err = util.Mkdir(util.PKG_ROOT)
 	if err != nil {
 		return err
 	}
-	_, err = mkdir(util.REPO_ROOT)
+	_, err = util.Mkdir(util.REPO_ROOT)
 	if err != nil {
 		return err
 	}
-	_, err = mkdir(util.PathCl("custom"))
+	_, err = util.Mkdir(util.PathCl("custom"))
 	if err != nil {
 		return err
 	}
