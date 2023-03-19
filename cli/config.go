@@ -22,6 +22,19 @@ func AddInstalled(p pkg.Pkg) error {
 	return nil
 }
 
+func RemoveInstalled(p pkg.Pkg) error {
+	store, err := pkg.GetStoreFile()
+	if err != nil {
+		return err
+	}
+
+	err = store.RemoveInstalled(p)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 type cliConfig struct {
 	config *pkg.Config
 	force  bool
