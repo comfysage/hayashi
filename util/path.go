@@ -86,3 +86,21 @@ func PathRepoFile(name string, path string) string {
 	}
 	return filepath.Join(PathRepo(name), path)
 }
+
+func PathPackDir(dir string) string {
+	if len(dir) == 0 {
+		panic("argument for type dir was nil")
+	}
+	return filepath.Join(PACK_ROOT, dir)
+}
+
+func PathPackFile(dir string, path string) string {
+	if len(path) == 0 {
+		panic("argument for path was nil")
+	}
+	file := filepath.Base(path)
+	if file == "." {
+		panic("argument for file was invalid")
+	}
+	return filepath.Join(PathPackDir(dir), file)
+}
