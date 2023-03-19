@@ -2,11 +2,10 @@ package cli
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
-	"io"
-	"os"
-	"os/exec"
 )
 
 func clone_pkg(p pkg.Pkg, force bool, deep_clone bool) error {
@@ -23,24 +22,8 @@ func clone_pkg(p pkg.Pkg, force bool, deep_clone bool) error {
 
 	printf("cloning " + COLOR_MAGENTA + p.Name + COLOR_RESET + " from " + COLOR_YELLOW + p.Url + COLOR_RESET + " ...")
 
-	cmd := exec.Command("git", "clone", "--filter=blob:none", p.Url, util.PathRepo(p.Name))
-	stdout, err := cmd.StderrPipe()
-	if err != nil {
-		return err
-	}
-
-	err = cmd.Start()
-	if err != nil {
-		return err
-	}
-
-	s, err := io.ReadAll(stdout)
-	if err != nil {
-		return err
-	}
-	printf(string(s))
-
-	err = cmd.Wait()
+	cmd := util.CloneCommand(p.Url, util.PathRepo(p.Name))
+	err := runOne(cmd, util.REPO_ROOT)
 	if err != nil {
 		return err
 	}
