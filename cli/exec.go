@@ -75,3 +75,7 @@ func run(script []string, pwd string) error {
 
 	return nil
 }
+
+func runOne(cmd []string, pwd string) error {
+	return run([]string{strings.Join(cmd, " ")}, pwd)
+}
