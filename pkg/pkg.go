@@ -17,6 +17,7 @@ type Pkg struct {
 	Install    []string `yaml:"install,omitempty"`
 	Remove     []string `yaml:"remove,omitempty"`
 	Update     []string `yaml:"update,omitempty"`
+	Pack       []Pack   `yaml:"pack,omitempty"`
 }
 
 func (pkg *Pkg) inferCollection(path string) error {
