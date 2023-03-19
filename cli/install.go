@@ -58,6 +58,11 @@ func startInstall(p pkg.Pkg, force bool, deep_clone bool) error {
 		return err
 	}
 
+	err = p.CreatePack()
+	if err != nil {
+		return err
+	}
+
 	err = AddInstalled(p)
 	if err != nil {
 		return err
