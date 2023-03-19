@@ -23,7 +23,7 @@ func clone_pkg(p pkg.Pkg, force bool, deep_clone bool) error {
 
 	printf("cloning " + COLOR_MAGENTA + p.Name + COLOR_RESET + " from " + COLOR_YELLOW + p.Url + COLOR_RESET + " ...")
 
-	cmd := exec.Command("git", "clone", "--depth", "1", p.Url, util.PathRepo(p.Name))
+	cmd := exec.Command("git", "clone", "--filter=blob:none", p.Url, util.PathRepo(p.Name))
 	stdout, err := cmd.StderrPipe()
 	if err != nil {
 		return err
