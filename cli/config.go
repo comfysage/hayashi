@@ -54,6 +54,26 @@ func Read() pkg.Config {
 	return config
 }
 
+func createPack() error {
+	if _, err := util.Mkdir(util.PACK_ROOT); err != nil {
+		return err
+	}
+
+	if _, err := util.Mkdir(util.PathPackDir("man")); err != nil {
+		return err
+	}
+
+	if _, err := util.Mkdir(util.PathPackDir("share")); err != nil {
+		return err
+	}
+
+	if err := runOne([]string{"ln -s", "../man", "man"},util.PathPackDir("share")); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func Init() error {
 	_, err := util.Mkdir(util.HAYASHI_ROOT)
 	if err != nil {
@@ -67,6 +87,12 @@ func Init() error {
 	if err != nil {
 		return err
 	}
+
+	err = createPack()
+	if err != nil {
+		return err
+	}
+
 	_, err = util.Mkdir(util.PathCl("custom"))
 	if err != nil {
 		return err
