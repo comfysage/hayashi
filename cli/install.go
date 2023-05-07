@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/crispybaccoon/hayashi/exec"
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
 )
@@ -22,8 +23,7 @@ func clone_pkg(p pkg.Pkg, force bool, deep_clone bool) error {
 
 	printf("cloning " + COLOR_MAGENTA + p.Name + COLOR_RESET + " from " + COLOR_YELLOW + p.Url + COLOR_RESET + " ...")
 
-	cmd := util.CloneCommand(p.Url, util.PathRepo(p.Name))
-	err := runOne(cmd, util.REPO_ROOT)
+	err := exec.Clone(p.Url, p.Name)
 	if err != nil {
 		return err
 	}
@@ -38,8 +38,7 @@ func install(p pkg.Pkg, force bool, deep_clone bool) error {
 			printf("  " + COLOR_GREEN + s)
 	} */ // TODO: on verbose
 
-	pwd := util.PathRepo(p.Name)
-	err := run(p.Install, pwd)
+	err := exec.RunInRepo(p.Name, p.Install)
 	if err != nil {
 		return err
 	}

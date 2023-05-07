@@ -1,17 +1,19 @@
 package cli
 
 import (
+	"io"
+	os_exec "os/exec"
+
+	"github.com/crispybaccoon/hayashi/exec"
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
-	"io"
-	"os/exec"
 )
 
 func pull_pkg(p pkg.Pkg) error {
 
 	printf("pulling " + COLOR_MAGENTA + p.Name + COLOR_RESET + " from " + COLOR_YELLOW + p.Url + COLOR_RESET + " ...")
 
-	cmd := exec.Command("git", "pull")
+	cmd := os_exec.Command("git", "pull")
 	cmd.Dir = util.PathRepo(p.Name)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -47,8 +49,7 @@ func update(p pkg.Pkg, force bool, deep_clone bool) error {
 	}
 
 	if len(p.Update) > 0 {
-		pwd := util.PathRepo(p.Name)
-		err = run(p.Update, pwd)
+		err = exec.RunInRepo(p.Name, p.Update)
 		if err != nil {
 			return err
 		}

@@ -3,10 +3,11 @@ package cli
 import (
 	"fmt"
 	"io"
-	"os/exec"
+	os_exec "os/exec"
 
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
+	"github.com/crispybaccoon/hayashi/exec"
 )
 
 func AddInstalled(p pkg.Pkg) error {
@@ -67,7 +68,7 @@ func createPack() error {
 		return err
 	}
 
-	if err := runOne([]string{"ln -s", "../man", "man"},util.PathPackDir("share")); err != nil {
+	if err := exec.RunInPack("share", []string{"ln -s ../man man"}); err != nil {
 		return err
 	}
 
@@ -102,7 +103,7 @@ func Init() error {
 		printf("fetching " + COLOR_MAGENTA + "core" + COLOR_RESET + " from " + COLOR_YELLOW + "https://github.com/crispybaccoon/hayashi" + COLOR_RESET + " ...")
 		p := util.PathPkg("custom", "core")
 
-		cmd := exec.Command("curl", "-L", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
+		cmd := os_exec.Command("curl", "-L", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
 		stdout, err := cmd.StderrPipe()
 		if err != nil {
 			return err

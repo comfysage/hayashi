@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/crispybaccoon/hayashi/exec"
 	"github.com/crispybaccoon/hayashi/pkg"
 	"github.com/crispybaccoon/hayashi/util"
 )
@@ -25,8 +26,7 @@ func remove_clone(p pkg.Pkg) error {
 func uninstall(p pkg.Pkg) error {
 	printf("removing " + COLOR_MAGENTA + p.Name + COLOR_RESET + " at " + COLOR_BLUE + util.PathRepo(p.Name) + COLOR_RESET + " ...")
 
-	pwd := util.PathRepo(p.Name)
-	err := run(p.Remove, pwd)
+	err := exec.RunInRepo(p.Name, p.Remove)
 	if err != nil {
 		return err
 	}

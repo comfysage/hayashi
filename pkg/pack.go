@@ -2,10 +2,10 @@ package pkg
 
 import (
 	"fmt"
-	"io"
 	"os"
 
 	"github.com/crispybaccoon/hayashi/util"
+	"github.com/crispybaccoon/hayashi/exec"
 )
 
 type Pack struct {
@@ -20,39 +20,7 @@ func (pkg Pkg) CreatePack() error {
 	}
 
 	for _, p := range pkg.Pack {
-		if len(p.Path) == 0 || len(p.Type) == 0 {
-			continue
-		}
-
-		src := util.PathRepoFile(pkg.Name, p.Path)
-		dst := util.PathPackFile(p.Type, p.Path)
-
-		sourceFileStat, err := os.Stat(src)
-		if err != nil {
-			return err
-		}
-
-		if !sourceFileStat.Mode().IsRegular() {
-			return fmt.Errorf("%s is not a regular file", src)
-		}
-
-		source, err := os.Open(src)
-		if err != nil {
-			return err
-		}
-		defer source.Close()
-
-		_, err = util.Mkdir(util.PathPackDir(p.Type))
-		if err != nil {
-			return err
-		}
-
-		destination, err := os.Create(dst)
-		if err != nil {
-			return err
-		}
-		defer destination.Close()
-		_, err = io.Copy(destination, source)
+		err := exec.Pack(pkg.Name, p.Path, p.Type)
 		if err != nil {
 			return err
 		}
