@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"io"
 
 	"gopkg.in/yaml.v3"
@@ -28,14 +27,11 @@ func (c *StoreFile) FromString(r io.Reader) error {
 }
 
 func (c *StoreFile) AddInstalled(pkg Pkg) error {
-	if pkg.Collection == "" {
-		return fmt.Errorf("no collection defined for pkg")
-	}
-	if pkg.Name == "" {
-		return fmt.Errorf("no name defined for pkg")
+	pkgString, err := pkg.DisplayName()
+	if err != nil {
+		return err
 	}
 
-	pkgString := pkg.Collection + "/" + pkg.Name
 	for _, s := range c.Installed {
 		if s == pkgString {
 			return nil
@@ -48,14 +44,10 @@ func (c *StoreFile) AddInstalled(pkg Pkg) error {
 }
 
 func (c *StoreFile) RemoveInstalled(pkg Pkg) error {
-	if pkg.Collection == "" {
-		return fmt.Errorf("no collection defined for pkg")
+	pkgString, err := pkg.DisplayName()
+	if err != nil {
+		return err
 	}
-	if pkg.Name == "" {
-		return fmt.Errorf("no name defined for pkg")
-	}
-
-	pkgString := pkg.Collection + "/" + pkg.Name
 
 	// NOTE: If you do not care about ordering, you have the much faster
 	// possibility to replace the element to delete with the one at the end of

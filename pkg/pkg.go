@@ -20,6 +20,16 @@ type Pkg struct {
 	Pack       []Pack   `yaml:"pack,omitempty"`
 }
 
+func (pkg Pkg) DisplayName() (string, error) {
+	if pkg.Collection == "" {
+		return "", fmt.Errorf("no collection defined for pkg")
+	}
+	if pkg.Name == "" {
+		return "", fmt.Errorf("no name defined for pkg")
+	}
+	return pkg.Collection + "/" + pkg.Name, nil
+}
+
 func (pkg *Pkg) inferCollection(path string) error {
 	if len(pkg.Collection) > 0 {
 		return nil
