@@ -26,32 +26,42 @@ func TestStringSplit(t *testing.T) {
 		exp := []string{"echo", "hello", "world"}
 		s := util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
+		} else {
+			t.Fatal(s, "!=", exp)
 		}
-		t.Fatal(s, "!=", exp)
 	}))
 	t.Run("with quotes", (func(t *testing.T) {
 		str := "echo \"hello world\""
 		exp := []string{"echo", "hello world"}
 		s := util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
+		} else {
+			t.Fatal(s, "!=", exp)
 		}
-		t.Fatal(s, "!=", exp)
+		str = "echo \"hello\"world"
+		exp = []string{"echo", "\"hello\"world"}
+		s = util.StringSplit(str)
+		if Equal(s, exp) {
+			t.Log(s, "==", exp)
+		} else {
+			t.Fatal(s, "!=", exp)
+		}
 	}))
 	t.Run("mixed quotes", (func(t *testing.T) {
 		str := "echo \"hello world\" 'hi mom'"
 		exp := []string{"echo", "hello world", "hi mom"}
 		s := util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
 		} else {
 			t.Fatal(s, "!=", exp)
 		}
 		str = "echo 'hello world' \"hi mom\""
 		s = util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
 		} else {
 			t.Fatal(s, "!=", exp)
 		}
@@ -61,7 +71,7 @@ func TestStringSplit(t *testing.T) {
 		exp := []string{"echo", "hello 'world'", "hi \" mom"}
 		s := util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
 		} else {
 			t.Fatal(s, "!=", exp)
 		}
@@ -69,7 +79,7 @@ func TestStringSplit(t *testing.T) {
 		exp = []string{"echo", "hello \"world\"", "hi ' mom"}
 		s = util.StringSplit(str)
 		if Equal(s, exp) {
-			return
+			t.Log(s, "==", exp)
 		} else {
 			t.Fatal(s, "!=", exp)
 		}
