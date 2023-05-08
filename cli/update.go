@@ -64,6 +64,11 @@ func update(p pkg.Pkg, force bool, deep_clone bool) error {
 		}
 	}
 
+	err = p.CreatePack()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
