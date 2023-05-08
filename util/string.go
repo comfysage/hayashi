@@ -1,9 +1,5 @@
 package util
 
-import (
-	"fmt"
-)
-
 func StringSplit(str string) []string {
 	splits := make([]int, 0)
 	quoted := false
@@ -41,9 +37,7 @@ func StringSplit(str string) []string {
 		if len(c) < 2 {
 			continue
 		}
-		fmt.Printf("[%q][%q]\n", c[0], c[len(c)-1])
 		if (c[0] == '"' && c[len(c)-1] == '"') || (c[0] == '\'' && c[len(c)-1] == '\'') {
-			fmt.Printf("[%s]\n", c[1:len(c)-1])
 			s[i] = c[1:len(c)-1]
 		}
 	}
