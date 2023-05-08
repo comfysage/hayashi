@@ -163,6 +163,17 @@ func Start(config pkg.Config) error {
 			return err
 		}
 		return nil
+	// .. changelog <...>
+	case "changelog":
+		args = args[1:]
+		if len(args) < 1 {
+			return Changelog("hayashi")
+		}
+		for _, s := range args {
+			err := Changelog(s)
+			return err
+		}
+		return nil
 	default:
 		Help(1)
 	}

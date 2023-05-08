@@ -12,6 +12,11 @@ func cloneCmd(url string, output string) []string {
 	return []string{"git", "clone", "--filter=blob:none", url, output}
 }
 
+func logCmd() []string {
+	return []string{"git", "-c", "pager.show=false",
+		"show", "--format=' - %C(yellow)%h%C(reset) %<(80,trunc)%s'", "-q", "@@{1}..@@{0}"}
+}
+
 func installCmd(src string, dst string, perm uint64) []string {
 	mode := strconv.FormatUint(perm, 8)
 	return []string{"install", "-m", mode, src, dst}

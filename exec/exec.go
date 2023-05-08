@@ -6,6 +6,10 @@ func Clone(url string, name string) error {
 	return runOne(cloneCmd(url, util.PathRepo(name)), util.REPO_ROOT)
 }
 
+func Changelog(name string) error {
+	return runOne(logCmd(), util.PathRepo(name))
+}
+
 func Pack(name string, path string, prefix string) error {
 	cmd, err := packCmd(name, path, prefix)
 	if err != nil {
