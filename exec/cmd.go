@@ -3,6 +3,7 @@ package exec
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/crispybaccoon/hayashi/util"
 )
@@ -11,8 +12,9 @@ func cloneCmd(url string, output string) []string {
 	return []string{"git", "clone", "--filter=blob:none", url, output}
 }
 
-func installCmd(src string, dst string, perm os.FileMode) []string {
-	return []string{"install", "-m", perm.String(), src, dst}
+func installCmd(src string, dst string, perm uint64) []string {
+	mode := strconv.FormatUint(perm, 8)
+	return []string{"install", "-m", mode, src, dst}
 }
 
 func packCmd(name string, path string, prefix string) ([]string, error) {
