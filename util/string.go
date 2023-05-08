@@ -1,5 +1,9 @@
 package util
 
+import (
+	"fmt"
+)
+
 func StringSplit(str string) []string {
 	splits := make([]int, 0)
 	quoted := false
@@ -7,7 +11,6 @@ func StringSplit(str string) []string {
 	for i, s := range str {
 		if quoted {
 			if s == quotec {
-				splits = append(splits, i)
 				quoted = false
 				continue
 			}
@@ -17,7 +20,6 @@ func StringSplit(str string) []string {
 		if s == '"' || s == '\'' {
 			quoted = true
 			quotec = s
-			splits = append(splits, i)
 			continue
 		}
 		if s == ' ' {
@@ -33,7 +35,17 @@ func StringSplit(str string) []string {
 		if sl != "" {
 			s = append(s, sl)
 		}
-		i = j + 1
+		i = j+1
+	}
+	for i, c := range s {
+		if len(c) < 2 {
+			continue
+		}
+		fmt.Printf("[%q][%q]\n", c[0], c[len(c)-1])
+		if (c[0] == '"' && c[len(c)-1] == '"') || (c[0] == '\'' && c[len(c)-1] == '\'') {
+			fmt.Printf("[%s]\n", c[1:len(c)-1])
+			s[i] = c[1:len(c)-1]
+		}
 	}
 
 	return s
