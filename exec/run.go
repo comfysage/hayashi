@@ -7,6 +7,8 @@ import (
 	"path"
 	"strings"
 	"sync"
+
+	"github.com/crispybaccoon/hayashi/util"
 )
 
 func copyAndCapture(w io.Writer, r io.Reader) ([]byte, error) {
@@ -34,7 +36,7 @@ func copyAndCapture(w io.Writer, r io.Reader) ([]byte, error) {
 
 func run(script []string, pwd string) error {
 	for _, c := range script {
-		el := strings.Split(c, " ")
+		el := util.StringSplit(c)
 		if el[0] == "cd" {
 			el[0] = pwd
 			pwd = path.Join(el...)
@@ -43,7 +45,7 @@ func run(script []string, pwd string) error {
 
 		/* var stdout []byte
 		var errStdout error */
-		cmd := exec.Command(el[0], el[1:]...)
+		cmd := exec.Command("bash", "-c", c)
 		cmd.Dir = pwd
 		stdoutpipe, err := cmd.StdoutPipe()
 		if err != nil {
