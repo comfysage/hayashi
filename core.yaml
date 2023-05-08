@@ -1,7 +1,6 @@
-pkg: core
+pkg:  core
+url:  github.com/crispybaccoon/pkg
 desc: core collection of packages for hayashi.
-url:
-  github.com/crispybaccoon/pkg
 
 collection: custom
 
@@ -9,5 +8,6 @@ install:
   - ln -sr . ../../pkg/core
 
 update:
-  - echo "updated core."
+  - echo updated core.
+  - git -c pager.show=false show --format=" - %C(yellow)%h%C(reset) %<(80,trunc)%s" -q @@{1}..@@{0}
 
