@@ -29,6 +29,19 @@ func pkgName(name string) string {
 	return name + ".yaml"
 }
 
+func RemoveExtension(name string) string {
+	if len(name) == 0 {
+		panic("argument for pkg name was nil")
+	}
+	lastdot := 0
+	for i, s := range name {
+		if s == '.' {
+			lastdot = i
+		}
+	}
+	return name[:lastdot]
+}
+
 func PathPkg(collection string, name string) string {
 	cl := PathCl(collection)
 	pkg_name := pkgName(name)
