@@ -129,6 +129,18 @@ func Start(config pkg.Config) error {
 		}
 		return nil
 
+	// .. search <>
+	case "search":
+		args = args[1:]
+		if len(args) < 1 {
+			Err(fmt.Errorf("not enough arguments"))
+		}
+		err = Search(args[0])
+		if err != nil {
+			return err
+		}
+		return nil
+
 	// .. add <...>
 	case "add":
 		args = args[1:]
