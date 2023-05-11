@@ -1,5 +1,7 @@
 package util
 
+import "strings"
+
 func StringSplit(str string) []string {
 	splits := make([]int, 0)
 	quoted := false
@@ -43,4 +45,16 @@ func StringSplit(str string) []string {
 	}
 
 	return s
+}
+
+func SearchStrings(arr []string, input string) []uint {
+	var matches []uint
+
+	for i, str := range arr {
+		if strings.Contains(str, input) {
+			matches = append(matches, uint(i))
+		}
+	}
+
+	return matches
 }
