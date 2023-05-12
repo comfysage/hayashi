@@ -186,6 +186,26 @@ func Start(config pkg.Config) error {
 			return err
 		}
 		return nil
+
+	// .. task <> <...>
+	case "task":
+		args = args[1:]
+		if len(args) < 1 {
+			return GetHelp([]string{"task"}, Flags.AllFlags())
+		}
+		switch args[0] {
+			// clone repo
+			case "clone":
+				return Clone(args[1])
+			// build repo
+			case "build":
+				return Build(args[1])
+			// pack pkg
+			case "pack":
+				return Pack(args[1])
+			default:
+				return GetHelp([]string{"task"}, Flags.AllFlags())
+		}
 	default:
 		Help(1)
 	}
