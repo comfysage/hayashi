@@ -9,6 +9,7 @@ var HELP_DOC = Doc{
 		Cmddoc: docs{
 			&CONFIG_DOC,
 			&PKG_DOC,
+			&TASK_DOC,
 		},
 	},
 }
@@ -80,6 +81,48 @@ var (
 		},
 	}
 )
+var TASK_DOC = Doc{
+	Name: "task",
+	Man: ManDoc{
+		Short: "Run pkg tasks",
+		Long:  "",
+		Usage: "ysi task <command> <pkg_name>",
+		Cmddoc: docs{
+			&TASK_CLONE_DOC,
+			&TASK_BUILD_DOC,
+			&TASK_PACK_DOC,
+		},
+	},
+}
+var (
+	TASK_CLONE_DOC = Doc{
+		Name: "task-clone",
+		Man: ManDoc{
+			Name: "clone",
+			Short: "Clone pkg repo",
+			Long:  "Clone the package repository",
+			Usage: "ysi task clone <pkg_name>",
+		},
+	}
+	TASK_BUILD_DOC = Doc{
+		Name: "task-build",
+		Man: ManDoc{
+			Name: "build",
+			Short: "Build pkg",
+			Long:  "Build a cloned package from source",
+			Usage: "ysi task build <pkg_name>",
+		},
+	}
+	TASK_PACK_DOC = Doc{
+		Name: "task-pack",
+		Man: ManDoc{
+			Name: "pack",
+			Short: "Pack pkg",
+			Long:  "Install installation files for a package",
+			Usage: "ysi task pack <pkg_name>",
+		},
+	}
+)
 
 var DOCS = DefineDocs(docs{
 	&HELP_DOC,
@@ -89,4 +132,8 @@ var DOCS = DefineDocs(docs{
 	&PKG_DOC,
 	&PKG_SHOW_DOC,
 	&PKG_ADD_DOC,
+	&TASK_DOC,
+	&TASK_CLONE_DOC,
+	&TASK_BUILD_DOC,
+	&TASK_PACK_DOC,
 })
