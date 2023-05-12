@@ -19,6 +19,10 @@ func logCmd() []string {
 
 func installCmd(src string, dst string, perm uint64) []string {
 	mode := strconv.FormatUint(perm, 8)
+	if dst == util.PathPackFile("bin", "hayashi") {
+		tmpdst := util.PathPackFile("bin", "hayashi.new")
+		return []string{"install", "-m", mode, src, tmpdst, ";", "mv", tmpdst, dst}
+	}
 	return []string{"install", "-m", mode, src, dst}
 }
 
