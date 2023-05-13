@@ -64,8 +64,10 @@ func createPack() error {
 		return err
 	}
 
-	if err := exec.RunInPack("share", []string{"ln -s ../man man"}); err != nil {
-		return err
+	if !util.PathExists(util.PathPackDir("share/man")) {
+		if err := exec.RunInPack("share", []string{"ln -s ../man man"}); err != nil {
+			return err
+		}
 	}
 
 	return nil
