@@ -125,7 +125,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err = Show(s)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 
@@ -150,7 +152,9 @@ func Start(config pkg.Config) error {
 		var err error
 		for _, s := range args {
 			err = Install(s)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 	// .. update <...>
@@ -161,7 +165,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Update(s)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 	// .. remove <...>
@@ -172,7 +178,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Uninstall(s)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 	// .. changelog <...>
@@ -183,7 +191,9 @@ func Start(config pkg.Config) error {
 		}
 		for _, s := range args {
 			err := Changelog(s)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 		return nil
 
