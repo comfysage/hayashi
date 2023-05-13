@@ -101,7 +101,7 @@ func Init() error {
 		printf("fetching " + COLOR_MAGENTA + "core" + COLOR_RESET + " from " + COLOR_YELLOW + "https://github.com/crispybaccoon/hayashi" + COLOR_RESET + " ...")
 		p := util.PathPkg("custom", "core")
 
-		cmd := os_exec.Command("curl", "-L", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
+		cmd := os_exec.Command("curl", "-fsSL", "https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/core.yaml", "-o", p)
 		stdout, err := cmd.StderrPipe()
 		if err != nil {
 			return err
@@ -129,7 +129,7 @@ func Init() error {
 		if err != nil {
 			return err
 		}
-		err = install(p, true, cfg.config.DeepClone)
+		err = startInstall(p, true, cfg.config.DeepClone)
 		if err != nil {
 			return err
 		}
