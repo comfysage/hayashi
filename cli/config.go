@@ -46,11 +46,7 @@ var cfg cliConfig
 
 func Read() pkg.Config {
 
-	config, err := pkg.GetConfig()
-	if err != nil {
-		Err(fmt.Errorf(COLOR_RED + "could not read config file " + COLOR_CYAN +
-			util.PathConfig() + COLOR_RED + ". try running hayashi config create."))
-	}
+	config, _ := pkg.GetConfig()
 
 	return config
 }
