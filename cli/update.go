@@ -54,10 +54,6 @@ func update(p pkg.Pkg, force bool, deep_clone bool) error {
 			return err
 		}
 	} else {
-		err = Uninstall(p.Name)
-		if err != nil {
-			return err
-		}
 		err = install(p, force, deep_clone)
 		if err != nil {
 			return err
