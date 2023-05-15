@@ -168,16 +168,13 @@ func RunArgs(argv []string) error {
 	results := Listeners
 	result := ArgListener{}
 	found := false
-	last_match := false
 	i := 0
 	for i = range argv {
-		last_match = false
 		next := []ArgListener{}
 		for _, l := range results {
 			if len(l.Argv) > i {
 				if l.Argv[i] == argv[i] {
 					next = append(next, l)
-					last_match = true
 				}
 			} else {
 				// previously collected a listener that has less arguments than provided
@@ -204,9 +201,7 @@ func RunArgs(argv []string) error {
 		result = results[0]
 	}
 
-	if last_match {
-		i++
-	}
+	i = len(result.Argv)
 
 	args := []string{}
 	if len(argv) > i {
