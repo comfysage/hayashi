@@ -21,7 +21,7 @@ type FlagSet struct {
 }
 
 func (f FlagSet) Arg(n int) string {
-	if len(f.args) < n + 1 || len(f.args) < 1 {
+	if len(f.args) < n+1 || len(f.args) < 1 {
 		return ""
 	}
 	return f.args[n]
@@ -40,7 +40,7 @@ func (f FlagSet) AllFlags() []string {
 		}
 
 		if len(f.Name) > 1 {
-		allflags = append(allflags, fmt.Sprintf("--%v", f.Name))
+			allflags = append(allflags, fmt.Sprintf("--%v", f.Name))
 			return
 		}
 		allflags = append(allflags, fmt.Sprintf("-%v", f.Name))
@@ -132,9 +132,9 @@ func (f *FlagSet) parseOne() (int, error) {
 		if !ok {
 			if name == "help" || name == "h" { //	special	case	for	nice	help	message.
 				f.usage()
-				return -1, fmt.Errorf("printing	help	message.")
+				return -1, fmt.Errorf("printing help message.")
 			}
-			return -1, fmt.Errorf("flag	provided	but	not	defined:	-%s", name)
+			return -1, fmt.Errorf("flag provided but not defined: -%s", name)
 		}
 
 		if *flag.Value {
