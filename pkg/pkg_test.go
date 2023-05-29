@@ -9,7 +9,7 @@ func TestInferInfo(t *testing.T) {
 		pkg := Pkg{
 			Url: "https://github.com/user/repo",
 		}
-		pkg.InferInfo()
+		pkg.InferInfo("./tmp.yaml")
 		if pkg.Url == "https://github.com/user/repo" {
 			return
 		}
@@ -19,7 +19,7 @@ func TestInferInfo(t *testing.T) {
 		pkg := Pkg{
 			Url: "github.com/user/repo",
 		}
-		pkg.InferInfo()
+		pkg.InferInfo("./tmp.yaml")
 		if pkg.Url == "https://github.com/user/repo" {
 			return
 		}
@@ -29,7 +29,7 @@ func TestInferInfo(t *testing.T) {
 		pkg := Pkg{
 			Url: "user/repo",
 		}
-		pkg.InferInfo()
+		pkg.InferInfo("./tmp.yaml")
 		if pkg.Url == "https://github.com/user/repo" {
 			return
 		}
