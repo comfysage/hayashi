@@ -37,7 +37,7 @@ func generateLineDoc(info [2]string) string {
 	return b.String()
 }
 
-func generateFlagDoc(fl Shortdoc) doc {
+func generateFlagDoc(fl Shortdoc) *Doc {
 	return &Doc{
 		Name: fl[0],
 		Man: ManDoc{

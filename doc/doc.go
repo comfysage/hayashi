@@ -11,7 +11,7 @@ type ManDoc struct {
 	Short   string
 	Long    string
 	Usage   string
-	Cmddoc  docs
+	Cmddoc  []*Doc
 	Flagdoc []Shortdoc
 }
 
@@ -22,9 +22,6 @@ type Shortdoc [3]string
 // 1:	short string
 // 2:	usage string
 
-type doc *Doc
-type docs []doc
-
 type Docs struct {
-	documents docs
+	documents []*Doc
 }

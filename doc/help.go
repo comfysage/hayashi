@@ -6,7 +6,7 @@ var HELP_DOC = Doc{
 		Short: "hayashi. a tiny distro-independent package manager written in Go.",
 		Long: "",
 		Usage: "",
-		Cmddoc: docs{
+		Cmddoc: []*Doc{
 			&CONFIG_DOC,
 			&PKG_DOC,
 			&TASK_DOC,
@@ -19,7 +19,7 @@ var CONFIG_DOC = Doc{
 		Short: "Manage global configuration",
 		Long: "",
 		Usage: "ysi config <command>",
-		Cmddoc: docs{
+		Cmddoc: []*Doc{
 			&CONFIG_INIT_DOC,
 			&CONFIG_CREATE_DOC,
 		},
@@ -51,7 +51,7 @@ var PKG_DOC = Doc{
 		Short: "Manage pkg configurations",
 		Long:  "",
 		Usage: "ysi pkg <command> <pkg_name>",
-		Cmddoc: docs{
+		Cmddoc: []*Doc{
 			&PKG_SHOW_DOC,
 			&PKG_ADD_DOC,
 		},
@@ -87,7 +87,7 @@ var TASK_DOC = Doc{
 		Short: "Run pkg tasks",
 		Long:  "",
 		Usage: "ysi task <command> <pkg_name>",
-		Cmddoc: docs{
+		Cmddoc: []*Doc{
 			&TASK_CLONE_DOC,
 			&TASK_BUILD_DOC,
 			&TASK_PACK_DOC,
@@ -124,7 +124,7 @@ var (
 	}
 )
 
-var DOCS = DefineDocs(docs{
+var DOCS = DefineDocs([]*Doc{
 	&HELP_DOC,
 	&CONFIG_DOC,
 	&CONFIG_INIT_DOC,

@@ -2,7 +2,7 @@ package doc
 
 import "fmt"
 
-func DefineDocs(documents docs) Docs {
+func DefineDocs(documents []*Doc) Docs {
 	return Docs{documents: documents}
 }
 
