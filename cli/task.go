@@ -3,7 +3,14 @@ package cli
 import "github.com/crispybaccoon/hayashi/pkg"
 
 func Clone(name string) error {
-	p, err := pkg.GetPkg(name)
+	var p pkg.Pkg
+	var err error
+
+	if cfg.local {
+		p, err = pkg.GetPkgFromPath(name)
+	} else {
+		p, err = pkg.GetPkg(name)
+	}
 	if err != nil {
 		return err
 	}
@@ -15,7 +22,14 @@ func Clone(name string) error {
 }
 
 func Build(name string) error {
-	p, err := pkg.GetPkg(name)
+	var p pkg.Pkg
+	var err error
+
+	if cfg.local {
+		p, err = pkg.GetPkgFromPath(name)
+	} else {
+		p, err = pkg.GetPkg(name)
+	}
 	if err != nil {
 		return err
 	}
@@ -27,7 +41,14 @@ func Build(name string) error {
 }
 
 func Pack(name string) error {
-	p, err := pkg.GetPkg(name)
+	var p pkg.Pkg
+	var err error
+
+	if cfg.local {
+		p, err = pkg.GetPkgFromPath(name)
+	} else {
+		p, err = pkg.GetPkg(name)
+	}
 	if err != nil {
 		return err
 	}
