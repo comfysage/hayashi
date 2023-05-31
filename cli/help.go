@@ -9,6 +9,7 @@ import (
 
 func Help(exitcode int) {
 	printf(doc.HELP_DOC.String())
+	printf(ListenerMan())
 	Flags.usage()
 	os.Exit(exitcode)
 }
