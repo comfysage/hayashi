@@ -6,6 +6,10 @@ func DefineDocs(documents []*Doc) Docs {
 	return Docs{documents: documents}
 }
 
+func (db Docs) Add(document *Doc) {
+	db.documents = append(db.documents, document)
+}
+
 func (db Docs) FindQuery(query []string, flags []string) (*Doc, error) {
 
 	q := query[0]

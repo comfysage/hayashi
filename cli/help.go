@@ -37,6 +37,10 @@ func (f *FlagSet) usage() {
 	printf(helpman)
 }
 
+func AddDoc(document doc.Doc) {
+	doc.DOCS.Add(&document)
+}
+
 func GetHelp(query []string, allflags []string) error {
 
 	doc, err := doc.DOCS.FindQuery(query, allflags)
