@@ -90,6 +90,13 @@ func Setup() {
 			Help(0)
 			return nil
 		}, "help")
+	NewListener("Show environment script", "",
+		"", func(s []string) error {
+			if err := Env(); err != nil {
+				return err
+			}
+			return nil
+		}, "env")
 	NewListener("List installed packages", "",
 		"", func(args []string) error {
 			err := List()
