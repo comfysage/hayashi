@@ -2,90 +2,74 @@
 
 :seedling: a tiny distro-independent package manager written in Go.
 
-## Usage
+# Hayashi
 
-### Pkg Config
+Hayashi is a lightweight package manager for macOS/linux, written in Go. It aims to
+provide an alternative solution to managing software packages on macOS/linux systems,
+addressing some of the issues faced with existing package managers like
+Homebrew.
 
-A pkg is defined in a yaml file at one of the [collections](#collections) in `~/.hayashi/pkg/`.
+## Features
 
-```yaml
-pkg: pkg_name
-collection: pkg_collection
-desc: description
-url: git_url
+-   Simplified package management: Hayashi strives to provide a streamlined and
+    user-friendly package management experience, making it easy to install,
+    update, and remove software packages.
 
-install:
- - install_script
-update:
- - update_script
-remove:
- - remove_script
-```
+-   Lightweight and efficient: Hayashi is designed to be lightweight and
+    efficient, minimizing resource usage while maintaining performance. It aims
+    to provide fast and responsive package management operations.
 
-### Installing a pkg
+-   Improved stability: Hayashi focuses on stability and reliability, aiming to
+    minimize dependency conflicts and provide a robust package installation
+    process.
 
-Install pkg defined in `~/.hayashi/pkg/`:
-
-    $ hayashi add pkg_name
-
-> This will search for a [pkg config](#pkg-config), clone the git repo and run the install script.
-
-### Adding a pkg config
-
-Add a pkg config at `~/.hayashi/pkg/custom/pkg_name.yaml`:
-
-    $ hayashi pkg add pkg_name
-
-You can also specify a git url for the pkg:
-
-    $ hayashi pkg add pkg_name git_url
-
-### Removing a pkg config
-
-    $ hayashi pkg remove pkg_name
-
-### Showing info about a pkg
-
-	$ hayashi show pkg_name
-
-### Updating a pkg
-
-    $ hayashi update pkg_name
-
-### List installed packages
-
-    $ hayashi list
+-   Self maintaining: Hayashi has built-in support for installing updates and
+    configuring new packages.
 
 ## Installation
 
-hayashi can be installed with go:
-
-```bash
-go install github.com/CrispyBaccoon/hayashi
+Run the installer using curl:
+```shell
+$ curl -fsSL https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/install.sh | sh
+```
+Setup hayashi environment, add this to your `.bashrc`/`.zshrc`:
+```shell
+eval "$($HOME/.hayashi/pack/bin/hayashi env)"
 ```
 
-or you can [build from source](#building-from-source).
+## Usage
 
-### Building from source
+Hayashi provides a simple command-line interface for managing packages. Here
+are some common commands:
 
-	$ cd ~/
-    $ git clone --depth 1 https://github.com/CrispyBaccoon/hayashi.git
-    $ cd ~/hayashi
-    $ make && sudo make install
+-   `hayashi install <package>`: Installs the specified package.
+-   `hayashi update <package>`: Updates the specified package to the latest version.
+-   `hayashi remove <package>`: Removes the specified package.
+-   `hayashi search <keyword>`: Searches for packages matching the specified keyword.
 
-## Configured packages
+For more information on available commands and options, refer to the Hayashi
+documentation.
 
-### Collections
+## Contributing
 
-Packages are stored in collections. hayashi includes some base packages in the core collection.
+Contributions to Hayashi are welcome! If you encounter any issues, have
+suggestions for improvements, or want to contribute new features, please submit
+a pull request or open an issue on the GitHub repository.
 
-### Core packages
+Before contributing, please review the [contribution
+guidelines](https://github.com/crispybaccoon/hayashi/blob/main/CONTRIBUTING.md)
+for instructions on how to contribute code, report bugs, and more.
 
-There are multiple packages included in the repo.
-- [cbonsai](https://gitlab.com/jallbrit/cbonsai). a bonsai tree generator written in C.
-- [neovim](https://github.com/neovim/neovim). Vim-fork focused on extensibility and usability.
-- [fzf](https://github.com/junegunn/fzf). a general-purpose command-line fuzzy finder.
-- [bat](https://github.com/sharkdp/bat). A cat(1) clone with wings.
-- [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh). A delightful framework for managing your zsh configuration.
-- [vim-plug](https://github.com/junegunn/vim-plug). A minimalist Vim plugin manager.
+## License
 
+Hayashi is released under the MIT License. Please review the license file for more details.
+
+## Acknowledgements
+
+Hayashi is inspired by package managers like Homebrew. Special thanks to the
+contributors and the open-source community for their valuable contributions.
+
+## Contact
+
+For any inquiries or questions, feel free to contact the project maintainer at
+[67917529+CrispyBaccoon@users.noreply.github.com]().
