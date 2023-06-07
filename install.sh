@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-echo -e " -\1xb[35m setting up\x1b[0m hayashi root"
+printf " -\033[35m setting up\033[0m hayashi root\n"
 mkdir -p ~/.hayashi/repo
 cd ~/.hayashi/repo
 
-echo -e " -\1xb[35m cloning\x1b[0m hayashi from\x1b[33m https://github.com/crispybaccoon/hayashi\x1b[0m"
+printf " -\033[35m cloning\033[0m hayashi from\033[33m https://github.com/crispybaccoon/hayashi\033[0m\n"
 git clone --filter=blob:none https://github.com/crispybaccoon/hayashi && cd hayashi
 
-echo -e " -\1xb[35m building\x1b[0m hayashi"
+printf " -\033[35m building\033[0m hayashi\n"
 go build -o ./hayashi .
 
-echo -e " -\1xb[35m setting up\x1b[0m environment"
+printf " -\033[35m setting up\033[0m environment\n"
 ./hayashi config init
 
-echo -e " -\1xb[35m finishing\x1b[0m installation"
+printf " -\033[35m finishing\033[0m installation\n"
 ./hayashi task pack hayashi
 
