@@ -2,6 +2,8 @@
 
 :seedling: a tiny distro-independent package manager written in Go.
 
+![hayashi-show](./assets/show-neovim.gif)
+
 # Hayashi
 
 Hayashi is a lightweight package manager for macOS/linux, written in Go. It aims to
