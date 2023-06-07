@@ -1,0 +1,48 @@
+name: Build Assets
+
+on: workflow_dispatch
+
+jobs:
+  build_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+          
+      - name: Build hayashi
+        run: go build -o ./hayashi .
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update && sudo apt install -y ffmpeg
+          curl -fsSLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip &&\
+          unzip FiraCode.zip -d FiraCode && sudo cp FiraCode/*.ttf /usr/share/fonts/ && fc-cache
+        
+      - name: Install ttyd
+        run: |
+          sudo apt install -y build-essential cmake git libjson-c-dev libwebsockets-dev
+          git clone https://github.com/tsl0922/ttyd.git
+          cd ttyd && mkdir build && cd build && cmake .. && make && sudo make install
+
+      - name: Setup VHS
+        run: go install github.com/charmbracelet/vhs@latest
+
+      - name: Create assets
+        run: |
+          echo "$PWD" >> $GITHUB_PATH
+          make -C assets
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit_message: Update generated VHS GIFS
+          branch: mega
+          commit_user_name: vhs-action
+          commit_user_email: actions@github.com
+          commit_author: vhs-action <actions@github.com>
+          file_pattern: "assets/*.gif"
