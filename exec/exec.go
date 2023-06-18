@@ -3,11 +3,11 @@ package exec
 import "github.com/crispybaccoon/hayashi/util"
 
 func Clone(url string, name string) error {
-	return runOne(cloneCmd(url, util.PathRepo(name)), util.REPO_ROOT)
+	return runOne(cloneCmd(url, util.PathRepo(name)), util.REPO_ROOT, nil)
 }
 
 func Changelog(name string) error {
-	return runOne(logCmd(), util.PathRepo(name))
+	return runOne(logCmd(), util.PathRepo(name), nil)
 }
 
 func Pack(name string, path string, prefix string) error {
@@ -15,13 +15,13 @@ func Pack(name string, path string, prefix string) error {
 	if err != nil {
 		return err
 	}
-	return runOne(cmd, util.PACK_ROOT)
+	return runOne(cmd, util.PACK_ROOT, nil)
 }
 
 func RunInRepo(name string, cmd []string) error {
-	return run(cmd, util.PathRepo(name))
+	return run(cmd, util.PathRepo(name), nil)
 }
 
 func RunInPack(prefix string, cmd []string) error {
-	return run(cmd, util.PathPackDir(prefix))
+	return run(cmd, util.PathPackDir(prefix), nil)
 }

@@ -34,7 +34,11 @@ func copyAndCapture(w io.Writer, r io.Reader) ([]byte, error) {
 	}
 }
 
-func run(script []string, pwd string) error {
+func run(script []string, pwd string, pipe *os.File) error {
+	if pipe == nil {
+		pipe = os.Stdout
+	}
+
 	for _, c := range script {
 		el := util.StringSplit(c)
 		if el[0] == "cd" {
@@ -59,7 +63,7 @@ func run(script []string, pwd string) error {
 		var wg sync.WaitGroup
 		wg.Add(1)
 		go func() {
-			_, err = copyAndCapture(os.Stdout, stdoutpipe)
+			_, err = copyAndCapture(pipe, stdoutpipe)
 			wg.Done()
 		}()
 
@@ -78,6 +82,6 @@ func run(script []string, pwd string) error {
 	return nil
 }
 
-func runOne(cmd []string, pwd string) error {
-	return run([]string{strings.Join(cmd, " ")}, pwd)
+func runOne(cmd []string, pwd string, pipe *os.File) error {
+	return run([]string{strings.Join(cmd, " ")}, pwd, pipe)
 }
