@@ -30,8 +30,9 @@ ${BIN_WIN}: ${MAIN}
 	env GOOS=windows $(CC) -o ${BIN_WIN} .
 
 clean:
-	rm ${BIN_LINUX} -r
-	rm ${BIN_WIN} -r
+	-rm ${BIN_LINUX} -r
+	-rm ${BIN_WIN} -r
+	@make -C assets clean
 
 help_test: ${BIN}
 	@echo "\033[01;35m$$\033[0m ${NAME} --help"
@@ -58,4 +59,7 @@ install: ${BIN}
 stats:
 	wc --lines **/*.go
 
-.PHONY: all test clean install stats
+assets:
+	@make -C assets
+
+.PHONY: all test clean install stats assets
