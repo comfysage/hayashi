@@ -12,6 +12,10 @@ func cloneCmd(url string, output string) []string {
 	return []string{"git", "clone", "--filter=blob:none", url, output}
 }
 
+func fetchCmds() []string {
+	return []string{"git fetch -q", "git checkout -q"}
+}
+
 func logCmd() []string {
 	return []string{"git", "-c", "pager.show=false",
 		"show", "--format=' - %C(yellow)%h%C(reset) %<(80,trunc)%s'", "-q", "@@{1}..@@{0}"}

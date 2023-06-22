@@ -6,6 +6,10 @@ func Clone(url string, name string) error {
 	return runOne(cloneCmd(url, util.PathRepo(name)), util.REPO_ROOT, nil)
 }
 
+func Fetch(name string) error {
+	return run(fetchCmds(), util.PathRepo(name), nil)
+}
+
 func Changelog(name string) error {
 	return runOne(logCmd(), util.PathRepo(name), nil)
 }
