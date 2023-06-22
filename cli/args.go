@@ -185,7 +185,12 @@ func Setup() {
 	NewListener("Update a package", "",
 		"", func(args []string) error {
 			if len(args) < 1 {
-				Err(fmt.Errorf("not enough arguments"))
+				for _, s := range []string{"core", "hayashi"} {
+					if err := Update(s); err != nil {
+						return err
+					}
+				}
+				return nil
 			}
 			for _, s := range args {
 				if err := Update(s); err != nil {
