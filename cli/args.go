@@ -202,7 +202,7 @@ func Setup() {
 	NewListener("Fetch package updates", "",
 		"", func(args []string) error {
 			if len(args) < 1 {
-				Err(fmt.Errorf("not enough arguments"))
+				return FetchAll()
 			}
 			for _, s := range args {
 				if err := Fetch(s); err != nil {
