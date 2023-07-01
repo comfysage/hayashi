@@ -15,6 +15,19 @@ func fetch_pkg(p pkg.Pkg) error {
 	return nil
 }
 
+func FetchAll() error {
+	store, err := pkg.GetStoreFile()
+	if err != nil {
+		return err
+	}
+
+	if err := store.ForEach(fetch_pkg); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func Fetch(name string) error {
 	p, err := pkg.GetPkg(name)
 	if err != nil {
