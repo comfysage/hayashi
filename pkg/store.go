@@ -1,13 +1,17 @@
 package pkg
 
 import (
+	"fmt"
 	"io"
+	"strings"
 
+	"github.com/crispybaccoon/hayashi/util"
 	"gopkg.in/yaml.v3"
 )
 
 type StoreFile struct {
 	Installed []string `yaml:"installed"`
+	installed []*Pkg
 }
 
 func DefaultStoreFile() StoreFile {
@@ -66,6 +70,70 @@ func (c *StoreFile) RemoveInstalled(pkg Pkg) error {
 		}
 	}
 	SaveStoreFile(*c)
+
+	return nil
+}
+
+func pkgFromStoreFormat(format string) (*Pkg, error) {
+
+	split_format := strings.Split(format, "/")
+	if len(split_format) < 2 {
+		return nil, fmt.Errorf("incorrect format of store item")
+	}
+	collection, name := split_format[0], split_format[1]
+
+	pkg, err := GetPkgFromPath(util.PathPkg(collection, name))
+	if err != nil {
+		return nil, err
+	}
+
+	return &pkg, nil
+}
+
+func (c *StoreFile) fixLength() {
+	for {
+		if len(c.installed) < len(c.Installed) {
+			c.installed = append(c.installed, nil)
+			continue
+		}
+		break
+	}
+}
+
+func (c *StoreFile) at(index uint) (*Pkg, error) {
+	if len(c.Installed) < 1 {
+		return nil, fmt.Errorf("list of installed packages is empty")
+	}
+	if len(c.Installed)-1 < int(index) {
+		return nil, fmt.Errorf("index of pkg outside memory")
+	}
+
+	pkg, err := pkgFromStoreFormat(c.Installed[index])
+	if err != nil {
+		return nil, err
+	}
+
+	c.fixLength()
+	c.installed[index] = pkg
+
+	return pkg, nil
+}
+
+func (c StoreFile) ForEach(fn func(p Pkg) error) error {
+
+	for index := range c.Installed {
+		pkg, err := pkgFromStoreFormat(c.Installed[index])
+		if err != nil {
+			fmt.Printf("error while retrieving pkg\n  %v", err)
+		}
+
+		c.fixLength()
+		c.installed[index] = pkg
+
+		if err := fn(*pkg); err != nil {
+			fmt.Printf("error while processing hooks (%v)\n  %v", pkg.Name, err)
+		}
+	}
 
 	return nil
 }
