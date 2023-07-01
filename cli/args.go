@@ -182,6 +182,12 @@ func Setup() {
 			return nil
 		}, "add")
 	NewAlias("add", "install")
+	fetch_command_name := "fetch"
+	update_command_name := "update"
+	if cfg.config.LegacyAlias {
+		fetch_command_name = "update"
+		update_command_name = "upgrade"
+	}
 	NewListener("Update a package", "",
 		"", func(args []string) error {
 			if len(args) < 1 {
@@ -198,7 +204,7 @@ func Setup() {
 				}
 			}
 			return nil
-		}, "update")
+		}, update_command_name)
 	NewListener("Fetch package updates", "",
 		"", func(args []string) error {
 			if len(args) < 1 {
@@ -210,7 +216,7 @@ func Setup() {
 				}
 			}
 			return nil
-		}, "fetch")
+		}, fetch_command_name)
 	NewListener("Remove a package", "",
 		"", func(args []string) error {
 			if len(args) < 1 {

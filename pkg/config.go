@@ -7,12 +7,14 @@ import (
 )
 
 type Config struct {
-	DeepClone bool `yaml:"deep_clone"`
+	DeepClone   bool `yaml:"deep_clone"`
+	LegacyAlias bool `yaml:"legacy_alias"`
 }
 
 func DefaultConfig() Config {
 	return Config{
 		DeepClone: false,
+		LegacyAlias: false,
 	}
 }
 
