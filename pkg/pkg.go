@@ -13,6 +13,7 @@ type Pkg struct {
 	Name       string   `yaml:"pkg"`
 	Url        string   `yaml:"url,omitempty"`
 	Desc       string   `yaml:"desc,omitempty"`
+	Clone      bool     `yaml:"clone,omitempty"`
 	Collection string   `yaml:"collection,omitempty"`
 	Install    []string `yaml:"install,omitempty"`
 	Remove     []string `yaml:"remove,omitempty"`

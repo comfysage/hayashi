@@ -47,23 +47,25 @@ func install(p pkg.Pkg, force bool, deep_clone bool) error {
 }
 
 func startInstall(p pkg.Pkg, force bool, deep_clone bool) error {
-	err := clone_pkg(p, force, deep_clone)
-	if err != nil {
+	if p.Clone {
+		if err := clone_pkg(p, force, deep_clone); err != nil {
+			return err
+		}
+	} else {
+		if _, err := util.Mkdir(util.PathRepo(p.Name)); err != nil {
+			return err
+		}
+	}
+
+	if err := install(p, force, deep_clone); err != nil {
 		return err
 	}
 
-	err = install(p, force, deep_clone)
-	if err != nil {
+	if err := p.CreatePack(); err != nil {
 		return err
 	}
 
-	err = p.CreatePack()
-	if err != nil {
-		return err
-	}
-
-	err = AddInstalled(p)
-	if err != nil {
+	if err := AddInstalled(p); err != nil {
 		return err
 	}
 
