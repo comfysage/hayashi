@@ -43,25 +43,23 @@ func update(p pkg.Pkg, force bool, deep_clone bool) error {
 
 	printf("updating " + COLOR_MAGENTA + p.Name + COLOR_RESET + " ...")
 
-	err := pull_pkg(p)
-	if err != nil {
-		return err
+	if p.Clone {
+		if err := pull_pkg(p); err != nil {
+			return err
+		}
 	}
 
 	if len(p.Update) > 0 {
-		err = exec.RunInRepo(p.Name, p.Update)
-		if err != nil {
+		if err := exec.RunInRepo(p.Name, p.Update); err != nil {
 			return err
 		}
 	} else {
-		err = install(p, force, deep_clone)
-		if err != nil {
+		if err := install(p, force, deep_clone); err != nil {
 			return err
 		}
 	}
 
-	err = p.CreatePack()
-	if err != nil {
+	if err := p.CreatePack(); err != nil {
 		return err
 	}
 
