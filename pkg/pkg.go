@@ -21,6 +21,14 @@ type Pkg struct {
 	Pack       []Pack   `yaml:"pack,omitempty"`
 }
 
+func NewPkg(name string, url string) Pkg {
+	return Pkg {
+		Name: name,
+		Url: url,
+		Clone: true,
+	}
+}
+
 func (pkg Pkg) DisplayName() (string, error) {
 	if pkg.Collection == "" {
 		return "", fmt.Errorf("no collection defined for pkg")

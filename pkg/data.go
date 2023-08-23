@@ -18,7 +18,7 @@ func GetPkgFromPath(path string) (Pkg, error) {
 		return Pkg{}, err
 	}
 
-	var pkg Pkg
+	pkg := NewPkg("", "")
 
 	_, err = util.HasFileExtension(fullpath)
 	if err != nil {

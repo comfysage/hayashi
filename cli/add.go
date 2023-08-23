@@ -42,11 +42,11 @@ func AddLocal(path string) error {
 func Add(name string) error {
 	printf("adding " + COLOR_MAGENTA + name + COLOR_RESET + " ...")
 
-	return add(pkg.Pkg{Name: name}, cfg.force)
+	return add(pkg.NewPkg(name, ""), cfg.force)
 }
 
 func AddWithUrl(name string, url string) error {
 	printf("adding " + COLOR_MAGENTA + name + COLOR_RESET + " ...")
 
-	return add(pkg.Pkg{Name: name, Url: url}, cfg.force)
+	return add(pkg.NewPkg(name, url), cfg.force)
 }
