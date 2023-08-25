@@ -57,6 +57,38 @@ func PkgExists(cl string, name string) bool {
 	return PathExists(p)
 }
 
+func PathDetermine(path string) (string, bool, error) {
+	is_dir := false
+	p := ""
+
+	if path[0] == '.' || path[0] == '/' {
+		// path is either relative or absolute
+		p, err := ExtendPath(path)
+		if err != nil {
+			return p, is_dir, err
+		}
+
+		// path points to either a file or a directory
+		ph, err := os.Stat(p)
+		if err != nil {
+			return p, is_dir, err
+		}
+		if ph.IsDir() {
+			is_dir = true
+		}
+
+		return p, is_dir, nil
+	}
+
+	// path is a name
+	p, err := PkgSearch(path)
+	if err != nil {
+		return p, is_dir, err
+	}
+
+	return p, is_dir, nil
+}
+
 func PkgSearch(name string) (string, error) {
 	if PkgExists("core", name) {
 		return PathPkg("core", name), nil
