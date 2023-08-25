@@ -65,6 +65,22 @@ func GetPkg(name string) (Pkg, error) {
 		return Pkg{}, err
 	}
 
+	if is_dir {
+		pkg_path := util.PathRepoPkg(path)
+
+		pkg, err := GetPkgFromPath(pkg_path)
+		if err != nil {
+			return Pkg{}, err
+		}
+
+		err = StoreRepoPkg(pkg_path, pkg)
+		if err != nil {
+			return Pkg{}, err
+		}
+
+		return pkg, err
+	}
+
 	pkg, err := GetPkgFromPath(path)
 	if err != nil {
 		return Pkg{}, err
@@ -155,6 +171,34 @@ func SaveStoreFile(store StoreFile) error {
 	}
 
 	fh, err := os.OpenFile(util.PathStoreFile(),
+		os.O_CREATE|os.O_RDWR, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	defer fh.Close()
+
+	if _, err = fh.WriteString(str); err != nil {
+		panic(err)
+	}
+
+	return nil
+}
+
+func StoreRepoPkg(path string, pkg Pkg) error {
+	pkg.Collection = "repo"
+
+	str, err := pkg.String()
+	if err != nil {
+		return err
+	}
+
+	_, err = util.Mkdir(util.PathCl("repo"))
+	if err != nil {
+		return err
+	}
+
+	fh, err := os.OpenFile(util.PathPkg("repo", pkg.Name),
 		os.O_CREATE|os.O_RDWR, os.ModePerm)
 	if err != nil {
 		return err
