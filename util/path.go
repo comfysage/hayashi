@@ -117,6 +117,13 @@ func PkgSearch(name string) (string, error) {
 	return "", fmt.Errorf("pkg not found.")
 }
 
+func PathRepoPkg(path string) string {
+	if len(path) == 0 {
+		panic("argument for path was nil")
+	}
+	return filepath.Join(path, REPO_PKG)
+}
+
 func PathRepo(name string) string {
 	if len(name) == 0 {
 		panic("argument for repo name was nil")

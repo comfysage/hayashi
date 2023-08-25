@@ -11,3 +11,5 @@ var STORE_NAME string = ".store.yaml"
 var REPO_ROOT string = HAYASHI_ROOT + "/repo"
 var PKG_ROOT string = HAYASHI_ROOT + "/pkg"
 var PACK_ROOT string = HAYASHI_ROOT + "/pack"
+
+var REPO_PKG string = "yuki.yaml"
