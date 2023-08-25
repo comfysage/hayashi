@@ -76,17 +76,12 @@ func Install(name string) error {
 	var p pkg.Pkg
 	var err error
 
-	if cfg.local {
-		p, err = pkg.GetPkgFromPath(name)
-	} else {
-		p, err = pkg.GetPkg(name)
-	}
+	p, err = pkg.GetPkg(name)
 	if err != nil {
 		return err
 	}
 
-	err = startInstall(p, cfg.force, cfg.config.DeepClone)
-	if err != nil {
+	if err := startInstall(p, cfg.force, cfg.config.DeepClone); err != nil {
 		return err
 	}
 

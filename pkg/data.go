@@ -60,12 +60,15 @@ func GetPkgFromPath(path string) (Pkg, error) {
 }
 
 func GetPkg(name string) (Pkg, error) {
-	path, err := util.PkgSearch(name)
+	path, is_dir, err := util.PathDetermine(name)
 	if err != nil {
 		return Pkg{}, err
 	}
 
 	pkg, err := GetPkgFromPath(path)
+	if err != nil {
+		return Pkg{}, err
+	}
 	return pkg, err
 }
 
