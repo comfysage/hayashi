@@ -2,7 +2,6 @@ package util
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -68,7 +67,7 @@ func PkgSearch(name string) (string, error) {
 		return p, nil
 	}
 
-	fd, err := ioutil.ReadDir(PKG_ROOT)
+	fd, err := os.ReadDir(PKG_ROOT)
 	for _, d := range fd {
 		if !d.IsDir() {
 			continue
