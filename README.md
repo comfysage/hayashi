@@ -32,7 +32,7 @@ Homebrew.
 
 Run the installer using curl:
 ```shell
-$ curl -fsSL https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/CrispyBaccoon/hayashi/mega/install.sh | sh
 ```
 Setup hayashi environment, add this to your `.bashrc`/`.zshrc`:
 ```shell
