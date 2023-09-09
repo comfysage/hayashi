@@ -11,3 +11,9 @@ Set Theme { "name": "evergarden",  "foreground": "#D3C6AA",  "background": "#273
 Require hayashi
 
 # vim: ft=vhs
+Type "hayashi show neovim"
+Sleep 100ms
+Enter
+
+# vim: ft=vhs
+Sleep 2.5s

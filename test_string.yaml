@@ -1,0 +1,13 @@
+#!/usr/bin/env -S hayashi add --local
+
+pkg: test
+url:
+  github.com/crispybaccoon/gruvboxed
+
+install:
+  - head -n 5 colors/gruvboxed.vim
+  - echo $HOME
+
+pack:
+  - path: colors/gruvboxed.vim
+    type: bin

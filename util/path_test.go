@@ -7,6 +7,18 @@ import (
 )
 
 func TestPathDetermine(t *testing.T) {
+	// t.Run("name", func(t *testing.T) {
+	// 	str := "core"
+	// 	exp := false
+	// 	result, is_dir, err := util.PathDetermine(str)
+	// 	if err != nil {
+	// 		t.Fatal(err)
+	// 	}
+	// 	if is_dir != exp {
+	// 		t.Fatal(result, "!=", exp)
+	// 	}
+	// 	t.Logf("%s -> %s", str, result)
+	// 	})
 	t.Run("relative path", func(t *testing.T) {
 		str := "./../core.yaml"
 		exp := false

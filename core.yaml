@@ -5,9 +5,8 @@ desc: core collection of packages for hayashi.
 collection: custom
 
 install:
-  - ln -sr . ../../pkg/core
+  - ln -s $PWD ../../pkg/core
 
 update:
   - echo updated core.
   - git -c pager.show=false show --format=" - %C(yellow)%h%C(reset) %<(80,trunc)%s" -q @@{1}..@@{0}
-
