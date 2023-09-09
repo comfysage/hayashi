@@ -263,6 +263,13 @@ func Setup() {
 			}
 			return Pack(args[0])
 		}, "task", "pack")
+  NewListener("Show homepage url of a package", "",
+    "", func(args []string) error {
+      if len(args) < 1 {
+				Err(fmt.Errorf("not enough arguments"))
+      }
+			return Home(args[0])
+    }, "home")
 
 	// if len(args) < 1 {
 	// 	return GetHelp([]string{"task"}, Flags.AllFlags())
