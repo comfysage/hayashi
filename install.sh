@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 printf " -\033[35m setting up\033[0m hayashi root\n"
 mkdir -p ~/.hayashi/repo
 cd ~/.hayashi/repo
