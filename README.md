@@ -4,6 +4,9 @@
 
 ![hayashi-show](./assets/show-neovim.gif)
 
+> [!WARNING]
+> hayashi has been deprecated in favor of [saku](https://github.com/crispybaccoon/saku).
+
 # Hayashi
 
 Hayashi is a lightweight package manager for macOS/linux, written in Go. It aims to
